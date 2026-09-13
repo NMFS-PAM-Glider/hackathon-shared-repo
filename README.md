@@ -58,7 +58,8 @@ what each deployment folder contains and which files are safe to open whole.
 ## Adding your own work
 
 Put it in a folder named `your-name-your-feature`, include a `README.md`
-describing it, and follow [docs/code_standards.md](docs/code_standards.md). Then
+describing it, and follow [docs/code_standards.md](docs/code_standards.md).
+[template_project/](template_project/) has a starting point you can copy. Then
 open a pull request using the walkthrough below.
 
 ---
@@ -78,13 +79,13 @@ Go to your terminal, navigate to where you want this repository to live on your 
 You just pulled the hackathon-shared-repo onto your computer so that you can start working on it. You are currently on the `main` branch -- the shared one that everybody sees.
 
 ### 2. Create Your Own Branch:
-Do not work directly on `main`. Make yourself a branch named the same way you will name your folder: `git checkout -b your-name-your-feature`. For example, `git checkout -b aksel-sloan-data-visualizer`. Run `git branch` afterwards to check -- the branch with the `*` next to it is the one you are on.
+Do not work directly on `main`. Make yourself a branch named the same way you will name your folder: `git checkout -b your-name-your-feature`. For example, `git checkout -b john-doe-data-visualizer`. Run `git branch` afterwards to check -- the branch with the `*` next to it is the one you are on.
 
 #### 2.1 What You Did:
 You made your own private line of work inside the shared repository. Anything you commit now lands on your branch and nowhere else, so you cannot break `main` or trip over anybody else's work. This is the space to add your cool, new, exciting, ground-breaking, paradigm-shifting tools!
 
 ### 3. Make Your Changes:
-First, create a folder and title it: your-name-your-feature. For example, aksel-sloan-data-visualizer. Make sure that everything you created or do, stays within this folder otherise your work will not be accepted (until your correct this :D). Within your folder, make a file called README.md, this is space for your to write a quick description of what your code is supposed to do and explain briefly how your code is supposed to work. Write any code you want to write within your folder, test it, be happy with it, and then move onto the next step. (Make sure to commit regularly with quality commit messages)!
+First, create a folder and title it: your-name-your-feature. For example, john-doe-data-visualizer. Make sure that everything you created or do, stays within this folder otherise your work will not be accepted (until your correct this :D). Within your folder, make a file called README.md, this is space for your to write a quick description of what your code is supposed to do and explain briefly how your code is supposed to work. Write any code you want to write within your folder, test it, be happy with it, and then move onto the next step. (Make sure to commit regularly with quality commit messages)!
 
 #### 3.1 What You Did:
 You just did some awesome coding either on your own or with the help of a chatbot assistant, great work!

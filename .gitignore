@@ -17,9 +17,10 @@ __pycache__/
 .venv/
 venv/
 
-# R
+# R / RStudio
 .Rhistory
 .RData
+.Ruserdata
 .Rproj.user/
 Rplots.pdf
 
