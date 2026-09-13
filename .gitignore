@@ -1,8 +1,11 @@
-# Hackathon data is downloaded by each participant, not committed.
-# See scripts/fetch_hackathon_data.py and data/README.md
-data/*
-!data/README.md
-!data/sample_stations.csv
+# Data files are not committed -- they are usually too big for a repository,
+# and GitHub rejects anything over 100 MB.
+*.nc
+*.h5
+*.parquet
+
+# Output written by the notebooks
+outputs/
 
 # Jupyter
 .ipynb_checkpoints/
@@ -18,7 +21,7 @@ venv/
 .Rhistory
 .RData
 .Rproj.user/
+Rplots.pdf
 
 # OS
 .DS_Store
-Rplots.pdf

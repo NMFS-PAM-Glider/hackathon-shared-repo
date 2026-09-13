@@ -1,0 +1,14 @@
+# Python packages used by this repo.
+#
+#   pip install -r requirements.txt
+
+jupyterlab
+pandas
+requests
+matplotlib
+
+# For notebook 04: ERDDAP access and gridded satellite data.
+erddapy
+xarray
+netcdf4
+pydap

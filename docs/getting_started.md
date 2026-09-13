@@ -5,28 +5,45 @@ skip to [Running a script](#running-a-script-without-a-notebook).
 
 ---
 
-## The quickest start: Binder
+## Setting up
 
-Click the badge on the [main README](../README.md), or use this link:
+Clone the repo and install what it needs:
 
-**https://mybinder.org/v2/gh/NMFS-PAM-Glider/hackathon-shared-repo/main**
+```bash
+git clone https://github.com/NMFS-PAM-Glider/hackathon-shared-repo.git
+cd hackathon-shared-repo
 
-This builds the whole environment for you in the cloud -- Python, R and every
-package -- and opens JupyterLab in your browser. Nothing to install.
+pip install -r requirements.txt
+```
 
-The first launch takes a few minutes while the image builds. Later launches are
-much faster.
+That covers the Python side. If you also want the R examples:
 
-> **Binder sessions are temporary.** After about 10 minutes of inactivity the
-> session shuts down and *everything you did is erased*. Before you close the
-> tab, download any file you want to keep (right-click > Download), or commit
-> and push your work. See [Saving your work](#saving-your-work).
+```bash
+Rscript install.R
+```
+
+R notebooks additionally need the R kernel registered with Jupyter. Run this
+once, inside R:
+
+```r
+IRkernel::installspec()
+```
+
+Then start JupyterLab:
+
+```bash
+jupyter lab
+```
+
+It opens in your browser and shows the repo's files down the left-hand side.
+
+> If your organisation provides a JupyterHub or cloud notebook server, the
+> packages may already be installed -- open a notebook and run the first cell of
+> `01_hello_world_python.ipynb` to check before installing anything.
 
 ---
 
 ## Running your first notebook
-
-Once JupyterLab is open:
 
 1. In the file browser on the left, double-click the **`notebooks`** folder.
 2. Double-click **`01_hello_world_python.ipynb`**.
@@ -55,62 +72,22 @@ almost certainly running it with the Python kernel.
 
 ### What order to go in
 
-| Notebook | What it covers | Needs internet? | Needs the dataset? |
-|---|---|---|---|
-| `01_hello_world_*` | Check the environment works | No | No |
-| `02_files_and_github_*` | Reading and writing files, git | No | No |
-| `03_aquaview_stac_*` | Pulling real data from AquaView | Yes | No |
-| `04_hackathon_data_*` | Using the hackathon dataset | No | Helps, but not required |
+| Notebook | What it covers | Needs internet? |
+|---|---|---|
+| `01_hello_world_*` | Check your setup works | No |
+| `02_files_and_github_*` | Reading and writing files, git | No |
+| `03_aquaview_stac_*` | Pulling real data from AquaView | Yes |
+| `04_glider_satellite_*` | Comparing a glider track with satellite data | Yes |
+| `05_hackathon_data_*` | Opening the hackathon data files | No |
 
 Each one exists twice, once for Python and once for R. They do the same thing,
 so pick whichever language you prefer -- or read both to compare.
 
-### After the starter notebooks
+Notebooks 01-03 are short and build on each other. Notebook 04 is longer -- a
+complete real-world workflow contributed by NOAA CoastWatch, comparing a glider
+track against satellite chlorophyll, temperature and salinity.
 
-[`tutorials/`](../tutorials/) holds longer worked examples contributed by the
-community. The first one compares a glider track against satellite chlorophyll,
-temperature and salinity -- a complete real-world workflow, in both Python and R.
-See [`tutorials/README.md`](../tutorials/README.md).
-
----
-
-## Getting the hackathon dataset
-
-The dataset is the **Glider Rodeo** collection -- eight glider deployments from
-January 2026, 1.3 GB in total. It lives in a **public** Google Cloud bucket, so
-there is no login, no Google account and no credentials to set up.
-
-You download it **once**, and after that every notebook simply reads local files.
-
-Open a terminal -- in JupyterLab, **File > New > Terminal** -- and run this from
-the top level of the repo to see what is available:
-
-```bash
-python3 scripts/fetch_hackathon_data.py
-```
-
-That prints the eight deployments and their sizes without downloading anything.
-Then ask for the one you want:
-
-```bash
-python3 scripts/fetch_hackathon_data.py sg274_20260128
-```
-
-Start with a single deployment rather than `--all`. The smallest
-(`sg274_20260128`) is 31 MB; everything together is 1.3 GB and takes a while.
-
-The files land in `data/`, mirroring the folder layout of the bucket. Running the
-script again is safe and quick -- anything already downloaded is skipped.
-
-> **In Binder**, the session is erased when you close it, so your download goes
-> with it. One deployment is fine to pull in Binder; for sustained work with the
-> full dataset use a local clone or a persistent JupyterHub.
-
-Notebooks 01-03 need none of this, and notebook 04 falls back to a small bundled
-sample file, so you can start immediately either way.
-
-Nothing you download is committed to git -- see [`data/README.md`](../data/README.md),
-which also lists what each file in a deployment contains.
+See [`notebooks/README.md`](../notebooks/README.md) for what each one covers.
 
 ---
 
@@ -121,19 +98,21 @@ repo:
 
 ```bash
 # Python
-python3 aksel_s_example/example.py
+python3 your-name-your-feature/your_script.py
 
 # R
-Rscript path/to/your_script.R
+Rscript your-name-your-feature/your_script.R
 ```
 
 The general shape is `python3 <path to the file>` or `Rscript <path to the file>`.
+The path is relative to wherever you are standing in the terminal, so `cd` to the
+top of the repo first if you are not already there.
 
 ### Why paths sometimes break
 
 A notebook runs from the folder *it* lives in, not from the top of the repo. So
-inside `notebooks/`, the file `data/sample_stations.csv` is not found -- it is
-`../data/sample_stations.csv` from there.
+inside `notebooks/`, a file at `docs/code_standards.md` is not found -- it is
+`../docs/code_standards.md` from there.
 
 Every notebook here works around this by finding the top of the repo once:
 
@@ -155,18 +134,53 @@ Copy that into your own notebooks and build paths from `REPO` / `repo`.
 
 ---
 
+## Working with large data files
+
+Research datasets get big, and loading one carelessly is the quickest way to
+crash a notebook. A CSV needs several times its file size in memory to load, so
+a 250 MB file can easily need more than a gigabyte.
+
+Read only the columns you need:
+
+```python
+pd.read_csv(path, usecols=["time", "depth", "temperature"])
+```
+
+or work through the file in pieces:
+
+```python
+for chunk in pd.read_csv(path, chunksize=100_000):
+    ...
+```
+
+Start with the smallest file you can that still answers your question, and only
+scale up once the code works.
+
+Keep large files out of git. Common data formats are ignored -- see
+[`.gitignore`](../.gitignore) -- because GitHub rejects files over 100 MB and a
+bloated repository is slow for everyone to clone.
+
+---
+
 ## Saving your work
 
-Your work is not safe until it is pushed to GitHub. In a terminal:
+Your work is not safe until it is pushed to GitHub. Everyone works on their own
+branch in this repo, so make one for yourself before you start:
+
+```bash
+git checkout -b your-name-your-feature
+```
+
+Then, as you go:
 
 ```bash
 git add .
 git commit -m "a short note about what you did"
-git push
+git push -u origin your-name-your-feature    # plain `git push` after the first time
 ```
 
-The full walkthrough -- forking, cloning, and opening a pull request so your work
-reaches the shared repo -- is in the [main README](../README.md).
+The full walkthrough -- branching, pushing, and opening a pull request so your
+work reaches `main` -- is in the [main README](../README.md).
 
 Two habits worth having:
 
@@ -176,32 +190,8 @@ Two habits worth having:
 - **Keep your work in your own folder**, named `your-name-your-feature`, as the
   README asks. And follow [`code_standards.md`](code_standards.md): every script
   needs a header saying what it is, how to run it, and what goes in and out. In a
-  notebook, put that header in the first markdown cell -- notebooks 01-04 show
+  notebook, put that header in the first markdown cell -- notebooks 01-03 show
   the pattern.
-
----
-
-## Working locally instead of in Binder
-
-If you would rather not use Binder:
-
-```bash
-git clone https://github.com/NMFS-PAM-Glider/hackathon-shared-repo.git
-cd hackathon-shared-repo
-
-pip install -r binder/requirements.txt
-Rscript binder/install.R          # only if you want the R notebooks
-
-jupyter lab
-```
-
-You will need Python 3, and R if you want the R notebooks. To run R notebooks
-locally you also need the R kernel, which Binder installs for you automatically:
-
-```r
-install.packages("IRkernel")
-IRkernel::installspec()
-```
 
 ---
 
@@ -211,8 +201,9 @@ IRkernel::installspec()
 |---|---|
 | `NameError` or `invalid syntax` in an R notebook | Wrong kernel -- check the top-right corner says `R` |
 | `FileNotFoundError` / `cannot open file` | Path is relative to `notebooks/`, not the repo root -- see above |
-| `ModuleNotFoundError` | Package missing; in Binder this means the image did not build |
-| Binder is slow the first time | Normal -- it is building the image; later launches are cached |
-| Your downloaded data vanished | Binder session ended; re-run the fetch script |
+| `ModuleNotFoundError` | Package missing -- run `pip install -r requirements.txt` |
+| `there is no package called ...` | Run `Rscript install.R` |
+| No `R` option in the kernel list | The R kernel is not registered -- run `IRkernel::installspec()` in R |
+| The kernel dies loading a file | Out of memory -- see [Working with large data files](#working-with-large-data-files) |
 
 Still stuck? Open an issue on the repo, or ask an organiser.

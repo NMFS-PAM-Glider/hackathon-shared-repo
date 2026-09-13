@@ -3,14 +3,19 @@ A place to share hackathon code projects.
 
 **Repository:** https://github.com/NMFS-PAM-Glider/hackathon-shared-repo
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/NMFS-PAM-Glider/hackathon-shared-repo/main)
-
 ## Quick start
 
-**Click the badge above.** It builds the full environment in the cloud -- Python,
-R, and every package -- and opens JupyterLab in your browser. Nothing to install.
+```bash
+git clone https://github.com/NMFS-PAM-Glider/hackathon-shared-repo.git
+cd hackathon-shared-repo
 
-Then open `notebooks/` and work through them in order. Start with
+pip install -r requirements.txt     # Python
+Rscript install.R                   # R, only if you want the R examples
+
+jupyter lab
+```
+
+Then open `notebooks/` and work through them in order, starting with
 `01_hello_world_python.ipynb` or `01_hello_world_r.ipynb`.
 
 New to Jupyter, Python or R? Read **[docs/getting_started.md](docs/getting_started.md)**
@@ -20,47 +25,35 @@ first -- it assumes no prior experience.
 
 | Notebook (Python and R) | What it covers |
 |---|---|
-| `01_hello_world_*` | Check your environment works |
+| `01_hello_world_*` | Check your setup works |
 | `02_files_and_github_*` | Read and write files, and get your work onto GitHub |
 | `03_aquaview_stac_*` | Pull real ocean data from the public AquaView catalogue |
-| `04_hackathon_data_*` | Load the hackathon's own dataset |
+| `04_glider_satellite_*` | Compare a glider track against satellite observations |
+| `05_hackathon_data_*` | List the hackathon data folder and open a file |
 
 Every example exists twice -- once in Python, once in R -- so use whichever
 language you prefer.
 
 ```
-binder/      environment definition (Binder builds from this)
-notebooks/   the starter examples, 01-04, Python and R
-tutorials/   longer worked examples contributed by the community
-scripts/     one-time setup, including the data download
-data/        the dataset lives here (not committed to git)
-docs/        getting started guide and code standards
+notebooks/        the worked examples, 01-05, Python and R
+docs/             getting started guide and code standards
+requirements.txt  Python packages
+install.R         R packages
 ```
 
-Once you have worked through 01-04, [tutorials/](tutorials/) has longer,
-real-world examples -- starting with comparing a glider track against satellite
-observations, in both Python and R.
+Notebooks 01-03 are short and build on each other. 04 is a longer, real-world
+workflow contributed by NOAA CoastWatch, and 05 opens the hackathon data. See
+[notebooks/README.md](notebooks/README.md) for what each one covers.
 
-## Getting the hackathon dataset
+## The hackathon data
 
-The **Glider Rodeo** dataset -- eight glider deployments from January 2026 -- lives
-in a public Google Cloud bucket. No login or credentials needed.
+The Glider Rodeo data is not in this repository -- the files are far too big for
+git. It lives in a shared folder alongside it.
 
-See what is available:
-
-```bash
-python3 scripts/fetch_hackathon_data.py
-```
-
-Then download a deployment (the whole set is 1.3 GB, so start with one):
-
-```bash
-python3 scripts/fetch_hackathon_data.py sg274_20260128
-```
-
-See [data/README.md](data/README.md) for what each deployment contains. Notebooks
-01-03 do not need the dataset at all, and notebook 04 falls back to a bundled
-sample, so you can start straight away.
+**`05_hackathon_data_*`** opens it: it lists what is there and reads a file. One
+line at the top of that notebook says where to look, so if your copy is
+elsewhere, change it there. See [notebooks/README.md](notebooks/README.md) for
+what each deployment folder contains and which files are safe to open whole.
 
 ## Adding your own work
 
@@ -70,39 +63,43 @@ open a pull request using the walkthrough below.
 
 ---
 
+## Instructions for working on your own branch
 
-## Instructions for forking and creating a pull request
+Everyone works in this one shared repository, each on their own branch. No
+forking needed.
 
-### 1.Fork the Repository: 
-While on this page, look to the upper right corner. You should see three buttons labeled: 'watch', 'fork', and 'star'. As you may have guessed, 
-you should click the 'fork' button. You will be taken to a new page with some options about how to fork the repository; these options included changing the name, or bringing down branches other than main. Do not mess with the default settings on this page unless you have a specific reason to do so. At the bottom of the page, press the green 'create fork' button. 
+> **Before you start:** you need push access. If step 4 fails with a permissions
+> error, ask an organiser to add you as a collaborator on the repo.
+
+### 1. Clone the Repository:
+Go to your terminal, navigate to where you want this repository to live on your machine, and run `git clone https://github.com/NMFS-PAM-Glider/hackathon-shared-repo.git`. Then move into it with `cd hackathon-shared-repo`.
 
 #### 1.1 What You Did:
-In step one, you made a copy of our hackathon-shared-repo to your github. You have full ownership of this copy and you can do whatever you want to the copy. This copy is the space that you have to add your cool, new, exciting, ground-breaking, paradigm-shifting tools to our shared repository!
+You just pulled the hackathon-shared-repo onto your computer so that you can start working on it. You are currently on the `main` branch -- the shared one that everybody sees.
 
-### 2. Check the Fork:
-Once you created your fork, github should automatically take your to your fresh fork. Take a look and see if you're looking at your fork. You should see in the very top left hand corner of github that you are now in {your_github_username}/hackathon-shared-repo (instead of NMFS-PAM-Glider/hackathon-shared-repo where you were before forking). If this looks right, let's move onto the next step
+### 2. Create Your Own Branch:
+Do not work directly on `main`. Make yourself a branch named the same way you will name your folder: `git checkout -b your-name-your-feature`. For example, `git checkout -b aksel-sloan-data-visualizer`. Run `git branch` afterwards to check -- the branch with the `*` next to it is the one you are on.
 
-### 3. Clone the Fork onto Your Machine:
-In the middle upper right hand of your github screen, you should see a green button titled 'clone'. Click this button and select a method to clone the repository. I typically use 'HTTPS'. Go ahead and copy the github link. Now, go to your terminal, navigate to where you want this repository to live on your machine and use `git clone https://github.com/{your_github_username}/hackathon-shared-repo.git` (REMEMBER TO SUB IN YOUR GITHUB USERNAME -- you are cloning *your fork*, not the original repo at NMFS-PAM-Glider)!
+#### 2.1 What You Did:
+You made your own private line of work inside the shared repository. Anything you commit now lands on your branch and nowhere else, so you cannot break `main` or trip over anybody else's work. This is the space to add your cool, new, exciting, ground-breaking, paradigm-shifting tools!
 
-#### 3.1 What You Did: 
-You have just pull the hackathon-shared-repository onto your computer so that you can start working on it.
-
-### 4. Make Your Changes:
+### 3. Make Your Changes:
 First, create a folder and title it: your-name-your-feature. For example, aksel-sloan-data-visualizer. Make sure that everything you created or do, stays within this folder otherise your work will not be accepted (until your correct this :D). Within your folder, make a file called README.md, this is space for your to write a quick description of what your code is supposed to do and explain briefly how your code is supposed to work. Write any code you want to write within your folder, test it, be happy with it, and then move onto the next step. (Make sure to commit regularly with quality commit messages)!
 
+#### 3.1 What You Did:
+You just did some awesome coding either on your own or with the help of a chatbot assistant, great work!
+
+### 4. Push Your Branch to Github:
+Now that you've made your changes, you can add and commit them. Hopefully you've been doing this as you go, but it's okay if this is the first time. From the hackathon-shared-repo directory run `git add .`. This command will stage all the changes in the current directory. Run `git status` and make sure that all the files you made or modified are green, this means they are ready to be committed. Now run `git commit -m "your message describing what you did."` And finally, the first time you push a new branch, run `git push -u origin your-name-your-feature`. After that first time, plain `git push` is enough.
+
 #### 4.1 What You Did:
-You just did some awesome coding either on your own or with the help of a chatbot assistant, great work! 
+You just put your branch up on github, where it is backed up and other people can see it. You rock! Your work is still only on your branch -- `main` has not changed.
 
-### 5. Push Your Changes to Your Github:
-Now that you've made your changes, you can add and commit your changes. Hopefully you've been doing this as you go, but it's okay if this is the first time. Get to your the hackathon-shared-repo directory and run `git add .`. This command will stage all the changes in the current directory. Run `git status` and make sure that all the files you made or modified are green, this means they are ready to be committed. Now run `git commit -m "your message describing what you did." And finally, run `git push`. Git push is what actually sends your new code up to github! 
+### 5. Open a Pull Request:
+Go to the repository on github. You should see a yellow banner near the top saying your branch had recent pushes, with a green 'Compare & pull request' button -- click it. (If the banner is gone, click the 'Pull requests' tab, then 'New pull request', and choose your branch.) Check that it says it will merge `your-name-your-feature` into `main`. Write a description of the changes you made and review your code. I highly suggest reviewing your code here because I often catch bugs in this stage. Finally, press 'Create pull request'.
 
-#### What You Did:
-You just put your changes up on your personal github. You rock! 
+#### 5.1 What You Did:
+You proposed your work for the maintainer (me) to view then accept / reject. If you 1. did your work entirely in your folder, 2. added a README.md to your folder, and 3. made sure to include a code spec in your script(s), then I am pretty dang sure that I am about to accept your contribution, great job!!!
 
-### 6. Make a Pull Request to the Original Repo:
-Now that your changes are on your github, you need to move to the official hackathon github. First, press the 'sync fork' button right under the green "code" button to make sure that, besides the changes you made, your repo matches the official repo. Then, press the 'contribute' button right next to the 'sync fork' button. A new popup window should appear and you can press the big green 'open pull request' button. Now you should be taken to a new page where you can write a description of the changes you made and review your code. I highly suggest reviewing your code here because I often catch bugs in this stage. Finally, press 'create pull request'. This button is the one that actually sends your changes to me for review. 
-
-#### What You Did:
-You uploaded your code to the original repository for the maintainer (me) to view then accept / reject. If you 1. did your work entirely in your folder, 2. added a README.md to your folder, and 3. made sure to include a code spec in your script(s), then I am pretty dang sure that I am about to accept your contribution, great job!!!
+### 6. Keeping Up To Date (optional):
+If other people's work gets merged into `main` while you are still going, you can pull it into your branch with `git pull origin main`. This is worth doing before you open your pull request, so yours merges cleanly.
