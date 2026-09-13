@@ -1,0 +1,24 @@
+# Hackathon data is downloaded by each participant, not committed.
+# See scripts/fetch_hackathon_data.py and data/README.md
+data/*
+!data/README.md
+!data/sample_stations.csv
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# OS
+.DS_Store
+Rplots.pdf

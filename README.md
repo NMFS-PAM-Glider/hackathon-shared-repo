@@ -1,6 +1,76 @@
 # hackathon-shared-repo
 A place to share hackathon code projects.
 
+**Repository:** https://github.com/NMFS-PAM-Glider/hackathon-shared-repo
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/NMFS-PAM-Glider/hackathon-shared-repo/main)
+
+## Quick start
+
+**Click the badge above.** It builds the full environment in the cloud -- Python,
+R, and every package -- and opens JupyterLab in your browser. Nothing to install.
+
+Then open `notebooks/` and work through them in order. Start with
+`01_hello_world_python.ipynb` or `01_hello_world_r.ipynb`.
+
+New to Jupyter, Python or R? Read **[docs/getting_started.md](docs/getting_started.md)**
+first -- it assumes no prior experience.
+
+## What is in here
+
+| Notebook (Python and R) | What it covers |
+|---|---|
+| `01_hello_world_*` | Check your environment works |
+| `02_files_and_github_*` | Read and write files, and get your work onto GitHub |
+| `03_aquaview_stac_*` | Pull real ocean data from the public AquaView catalogue |
+| `04_hackathon_data_*` | Load the hackathon's own dataset |
+
+Every example exists twice -- once in Python, once in R -- so use whichever
+language you prefer.
+
+```
+binder/      environment definition (Binder builds from this)
+notebooks/   the starter examples, 01-04, Python and R
+tutorials/   longer worked examples contributed by the community
+scripts/     one-time setup, including the data download
+data/        the dataset lives here (not committed to git)
+docs/        getting started guide and code standards
+```
+
+Once you have worked through 01-04, [tutorials/](tutorials/) has longer,
+real-world examples -- starting with comparing a glider track against satellite
+observations, in both Python and R.
+
+## Getting the hackathon dataset
+
+The **Glider Rodeo** dataset -- eight glider deployments from January 2026 -- lives
+in a public Google Cloud bucket. No login or credentials needed.
+
+See what is available:
+
+```bash
+python3 scripts/fetch_hackathon_data.py
+```
+
+Then download a deployment (the whole set is 1.3 GB, so start with one):
+
+```bash
+python3 scripts/fetch_hackathon_data.py sg274_20260128
+```
+
+See [data/README.md](data/README.md) for what each deployment contains. Notebooks
+01-03 do not need the dataset at all, and notebook 04 falls back to a bundled
+sample, so you can start straight away.
+
+## Adding your own work
+
+Put it in a folder named `your-name-your-feature`, include a `README.md`
+describing it, and follow [docs/code_standards.md](docs/code_standards.md). Then
+open a pull request using the walkthrough below.
+
+---
+
+
 ## Instructions for forking and creating a pull request
 
 ### 1.Fork the Repository: 
@@ -14,7 +84,7 @@ In step one, you made a copy of our hackathon-shared-repo to your github. You ha
 Once you created your fork, github should automatically take your to your fresh fork. Take a look and see if you're looking at your fork. You should see in the very top left hand corner of github that you are now in {your_github_username}/hackathon-shared-repo (instead of NMFS-PAM-Glider/hackathon-shared-repo where you were before forking). If this looks right, let's move onto the next step
 
 ### 3. Clone the Fork onto Your Machine:
-In the middle upper right hand of your github screen, you should see a green button titled 'clone'. Click this button and select a method to clone the repository. I typically use 'HTTPS'. Go ahead and copy the github link. Now, go to your terminal, navigate to where you want this repository to live on your machine and use `git clone https://github.com/ORIGINAL-OWNER/repository-name.git` (REMEMBER TO SUB IN YOUR GITHUB LINK, NOT THIS ONE)!
+In the middle upper right hand of your github screen, you should see a green button titled 'clone'. Click this button and select a method to clone the repository. I typically use 'HTTPS'. Go ahead and copy the github link. Now, go to your terminal, navigate to where you want this repository to live on your machine and use `git clone https://github.com/{your_github_username}/hackathon-shared-repo.git` (REMEMBER TO SUB IN YOUR GITHUB USERNAME -- you are cloning *your fork*, not the original repo at NMFS-PAM-Glider)!
 
 #### 3.1 What You Did: 
 You have just pull the hackathon-shared-repository onto your computer so that you can start working on it.

@@ -1,0 +1,267 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+
+packages <- c( "rerddap", "rerddapXtracto","tidyverse","scales")
+
+
+# Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+# Load packages 
+invisible(lapply(packages, library, character.only = TRUE))
+
+```
+
+## Get some glider tracks from the Scripps Glider ERDDAP
+## We will get some recent data from along CalCOFI line 90 
+
+```{r get glider data}
+
+#Setup erddap dataset info 
+
+url <- "https://spraydata.ucsd.edu/erddap/"
+dataset_info <- info("binnedCUGN90", url = url)
+
+titletext <- "CalCOFI Line 90" #change if glider dataset name is changed, used on the plots produced  
+
+# Fetch the data using tabledap
+glider <- tabledap(
+  dataset_info,
+  fields = c("longitude", "latitude", "time", "depth", "chlorophyll", "temperature", "salinity", "doxy"),
+  "time>=2026-01-01",
+  "time<=2026-06-30"
+)
+
+```
+
+```{r Subset track to surface values (depth=10)}
+
+glider_surface <- subset(glider, depth==10) 
+
+```
+
+
+```{r Get satellite data: chl}
+
+# Get data information from ERDDAP server 
+dataset <- 'pmlEsaCCI60OceanColorDaily'
+dataInfo <- rerddap::info(dataset, url= "https://coastwatch.pfeg.noaa.gov/erddap")
+
+# Set the variable we want to extract data from:
+parameter <- 'chlor_a'
+
+# Set xlen, ylen to 0.2 degree
+xlen <- 0.2 
+ylen <- 0.2
+
+
+# Get variables x, y, t coordinates from glider data
+xcoords <- glider_surface$longitude
+ycoords <- glider_surface$latitude
+tcoords <- as.Date(glider_surface$time)
+
+# Extract satellite data 
+chl_sat <- rxtracto(dataInfo, 
+                  parameter=parameter, 
+                  xcoord=xcoords, ycoord=ycoords, 
+                  tcoord=tcoords, xlen=xlen, ylen=ylen)
+
+```
+
+
+```{r Get satellite data: sst}
+
+# Get data information from ERDDAP server 
+dataset <- 'noaacwLEOACSPOSSTL3SCWeeklyNRT'
+dataInfo <- rerddap::info(dataset, url= "https://coastwatch.pfeg.noaa.gov/erddap")
+
+# Set the variable we want to extract data from:
+parameter <- 'sea_surface_temperature'
+
+# Extract satellite data 
+sst_sat <- rxtracto(dataInfo, 
+                  parameter=parameter, 
+                  xcoord=xcoords, ycoord=ycoords, 
+                  tcoord=tcoords, xlen=xlen, ylen=ylen)
+
+```
+
+
+
+```{r Get satellite data: salinity}
+
+# Get data information from ERDDAP server 
+dataset <- 'coastwatchSMOSv662SSS3day'
+dataInfo <- rerddap::info(dataset, url= "https://coastwatch.pfeg.noaa.gov/erddap")
+
+# Set the variable we want to extract data from:
+parameter <- 'sss'
+
+# Extract satellite data. This dataset has an altitude dimension so we have to specify that in the rxtracto call by giving it zcoord   
+salinity_sat <- rxtracto(dataInfo, 
+                  parameter=parameter, 
+                  xcoord=xcoords, ycoord=ycoords, zcoord=ycoords*0,
+                  tcoord=tcoords, xlen=xlen, ylen=ylen)
+
+```
+
+
+```{r Merge satellite data and glider data}
+
+glider_surface$chl_sat <- chl_sat$'mean chlor_a'
+glider_surface$sst_sat <- sst_sat$'mean sea_surface_temperature'
+glider_surface$salinity_sat <- salinity_sat$'mean sss'
+```
+
+`
+```{r Plot timeseries: chl }
+
+# 1. Reshape data for a unified legend
+glider_surface %>%
+  pivot_longer(
+    cols = c(chlorophyll, chl_sat),
+    names_to = "source",
+    values_to = "sal_val"
+  ) %>%
+  mutate(source = ifelse(source == "chlorophyll", "Glider (In Situ)", "Satellite (Surface)")) %>%
+
+# 2. Build the upgraded plot
+  ggplot(aes(x = time, y = sal_val, color = source)) +
+  # Background trend lines to connect time points
+  geom_line(alpha = 0.35, linewidth = 0.5) +
+  # Points with transparency to handle overlapping observations
+  geom_point(alpha = 0.7, size = 1.5, na.rm = TRUE) +
+  scale_color_manual(values = c("Glider (In Situ)" = "forestgreen", "Satellite (Surface)" = "darkgray")) +
+  # Format time axis neatly
+  scale_x_datetime(
+    breaks = breaks_pretty(n = 10),      # Automatically targets ~10 neatly spaced ticks
+    labels = label_date_short()          # Concise format (e.g., "Jan", "15", "Feb") without repeating years
+  ) +
+  # Dynamically include your title_text variable inside labs()
+  labs(
+    title = paste("Chlorophyll Comparison:", titletext),
+    subtitle = "Glider surface measurements vs. satellite observations",
+    x = NULL,
+    y = "Chlorophyll",
+    color = "Data Source"
+  ) +
+  # Minimalist oceanographic styling
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "grey40", margin = margin(b = 10)),
+    legend.position = "top",
+    legend.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_line(color = "grey90", linetype = "dashed"),
+    axis.text.x = element_text(angle = 30, hjust = 1)
+  )
+
+```
+
+```{r Plot timeseries: sst}
+
+
+# 1. Reshape data for a unified legend & clean mapping
+glider_surface %>%
+  pivot_longer(
+    cols = c(temperature, sst_sat),
+    names_to = "source",
+    values_to = "temp_val"
+  ) %>%
+  mutate(source = ifelse(source == "temperature", "Glider (In Situ)", "Satellite (SST)")) %>%
+  
+# 2. Build the upgraded plot
+  ggplot(aes(x = time, y = temp_val, color = source)) +
+  # Background trend lines to help connect time points
+  geom_line(alpha = 0.35, linewidth = 0.5) +
+  # Points with custom size and transparency
+  geom_point(alpha = 0.7, size = 1.5, na.rm = TRUE) +
+  scale_color_manual(values = c("Glider (In Situ)" = "blue", "Satellite (SST)" = "darkgray")) +
+  # Format date axis neatly (e.g., "Jan 2025")
+  scale_x_datetime(
+    breaks = breaks_pretty(n = 10),      # Automatically targets ~10 neatly spaced ticks
+    labels = label_date_short()          # Concise format (e.g., "Jan", "15", "Feb") without repeating years
+  ) +
+  # Labels and units
+  labs(
+    title = paste("Sea Surface Temperature Comparison for",titletext),
+    subtitle = "Glider surface measurements vs. satellite observations",
+    x = NULL,
+    y = "Temperature (°C)",
+    color = "Data Source"
+  ) +
+  # Minimalist oceanographic styling
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "grey40", margin = margin(b = 10)),
+    legend.position = "top",
+    legend.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_line(color = "grey90", linetype = "dashed"),
+    axis.text.x = element_text(angle = 30, hjust = 1)
+  )
+
+```
+
+
+```{r Plot timeseries: salinity }
+
+
+
+# 1. Reshape data for a unified legend
+glider_surface %>%
+  pivot_longer(
+    cols = c(salinity, salinity_sat),
+    names_to = "source",
+    values_to = "sal_val"
+  ) %>%
+  mutate(source = ifelse(source == "salinity", "Glider (In Situ)", "Satellite (SSS)")) %>%
+
+# 2. Build the upgraded plot
+  ggplot(aes(x = time, y = sal_val, color = source)) +
+  # Background trend lines to connect time points
+  geom_line(alpha = 0.35, linewidth = 0.5) +
+  # Points with transparency to handle overlapping observations
+  geom_point(alpha = 0.7, size = 1.5, na.rm = TRUE) +
+  # High-contrast oceanographic palette (Navy/Blue for Glider, Amber/Orange for Satellite)
+  scale_color_manual(values = c("Glider (In Situ)" = "#E76F51", "Satellite (SSS)" = "darkgray")) +
+  # Format time axis neatly
+  scale_x_datetime(
+    breaks = breaks_pretty(n = 10),      # Automatically targets ~10 neatly spaced ticks
+    labels = label_date_short()          # Concise format (e.g., "Jan", "15", "Feb") without repeating years
+  ) +
+  # Dynamically include your title_text variable inside labs()
+  labs(
+    title = paste("Sea Surface Salinity Comparison:", titletext),
+    subtitle = "Glider surface measurements vs. satellite observations",
+    x = NULL,
+    y = "Salinity (PSU)",
+    color = "Data Source"
+  ) +
+  # Minimalist oceanographic styling
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "grey40", margin = margin(b = 10)),
+    legend.position = "top",
+    legend.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_line(color = "grey90", linetype = "dashed"),
+    axis.text.x = element_text(angle = 30, hjust = 1)
+  )
+
+
+```
+
+
+

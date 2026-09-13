@@ -1,0 +1,11 @@
+station_id,name,latitude,longitude,depth_m,water_temp_c,salinity_psu,observed_date
+ST-001,Gulf Stream North,40.1250,-70.4500,25.0,18.4,35.1,2024-06-01
+ST-002,Georges Bank East,41.6800,-66.9200,60.5,12.7,32.8,2024-06-02
+ST-003,Nantucket Shoals,40.9100,-69.5600,18.2,15.9,33.4,2024-06-03
+ST-004,Cape Hatteras Slope,35.2200,-74.8800,120.0,21.3,36.0,2024-06-04
+ST-005,Mid-Atlantic Bight,38.7400,-73.1000,45.8,17.1,34.2,2024-06-05
+ST-006,Delaware Bay Mouth,38.7800,-75.0900,12.4,19.6,30.7,2024-06-06
+ST-007,Gulf of Maine Central,43.1500,-68.9000,95.3,9.8,32.1,2024-06-07
+ST-008,Jordan Basin,43.5600,-67.8900,180.7,7.2,34.6,2024-06-08
+ST-009,Block Island Sound,41.1900,-71.5800,22.1,16.4,31.9,2024-06-09
+ST-010,Wilkinson Basin,42.4300,-69.7600,150.2,8.5,34.0,2024-06-10
