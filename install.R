@@ -13,6 +13,9 @@ install.packages(c(
   "tidyverse",      # dplyr/ggplot2/readr/tidyr etc as one bundle
   "scales",         # axis formatting for the tutorial plots
 
+  # Used by notebook 06
+  "rstac",          # STAC catalogue client
+
   # The R kernel for Jupyter. After installing, register it with:
   #   IRkernel::installspec()
   "IRkernel"

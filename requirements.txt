@@ -12,3 +12,6 @@ erddapy
 xarray
 netcdf4
 pydap
+
+# For notebook 06: STAC catalogue client.
+pystac-client

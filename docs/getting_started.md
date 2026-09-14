@@ -7,39 +7,66 @@ skip to [Running a script](#running-a-script-without-a-notebook).
 
 ## Setting up
 
-Clone the repo and install what it needs:
+Python, R and JupyterLab are already installed for you. All you need is the repo
+and the packages the notebooks use.
+
+### 1. Open a terminal
+
+These commands are typed into a terminal, not into a notebook. There are two
+ways to open one in JupyterLab -- either is fine:
+
+- **From the Launcher:** the Launcher is the tab of big tiles you land on. Under
+  **Other**, click **Terminal**. If no Launcher is open, click the **+** button
+  at the top of the file browser on the left to get one.
+- **From the menu:** **File > New > Terminal**.
+
+Either way, a panel opens in a new tab. That is your terminal -- type into it
+and press Enter.
+
+### 2. Get the repo
+
+It may already be there. Look first:
+
+```bash
+ls
+```
+
+That lists the folders where you are standing. **If you see
+`hackathon-shared-repo`**, you already have it -- step into it and pull anything
+added since:
+
+```bash
+cd hackathon-shared-repo
+git pull
+```
+
+**If you do not see it**, download it:
 
 ```bash
 git clone https://github.com/NMFS-PAM-Glider/hackathon-shared-repo.git
 cd hackathon-shared-repo
+```
 
+Either way you should now be inside the repo. Check with `pwd` -- the path it
+prints should end in `hackathon-shared-repo`.
+
+### 3. Install the packages
+
+```bash
 pip install -r requirements.txt
 ```
 
-That covers the Python side. If you also want the R examples:
+And, if you want to run the R notebooks:
 
 ```bash
 Rscript install.R
 ```
 
-R notebooks additionally need the R kernel registered with Jupyter. Run this
-once, inside R:
+Running these when the packages are already present is safe -- they just report
+that there is nothing to do.
 
-```r
-IRkernel::installspec()
-```
-
-Then start JupyterLab:
-
-```bash
-jupyter lab
-```
-
-It opens in your browser and shows the repo's files down the left-hand side.
-
-> If your organisation provides a JupyterHub or cloud notebook server, the
-> packages may already be installed -- open a notebook and run the first cell of
-> `01_hello_world_python.ipynb` to check before installing anything.
+That is the whole setup. Open the `notebooks` folder in the file browser on the
+left and start with `01_hello_world_python.ipynb`.
 
 ---
 
@@ -79,6 +106,7 @@ almost certainly running it with the Python kernel.
 | `03_aquaview_stac_*` | Pulling real data from AquaView | Yes |
 | `04_glider_satellite_*` | Comparing a glider track with satellite data | Yes |
 | `05_hackathon_data_*` | Opening the hackathon data files | No |
+| `06_aquaview_discovery_*` | AQUAVIEW workshop -- follow along in the session | Yes |
 
 Each one exists twice, once for Python and once for R. They do the same thing,
 so pick whichever language you prefer -- or read both to compare.
@@ -203,7 +231,7 @@ Two habits worth having:
 | `FileNotFoundError` / `cannot open file` | Path is relative to `notebooks/`, not the repo root -- see above |
 | `ModuleNotFoundError` | Package missing -- run `pip install -r requirements.txt` |
 | `there is no package called ...` | Run `Rscript install.R` |
-| No `R` option in the kernel list | The R kernel is not registered -- run `IRkernel::installspec()` in R |
+| No `R` option in the kernel list | Refresh the page first; if it is still missing, ask an organiser |
 | The kernel dies loading a file | Out of memory -- see [Working with large data files](#working-with-large-data-files) |
 
 Still stuck? Open an issue on the repo, or ask an organiser.

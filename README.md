@@ -5,21 +5,26 @@ A place to share hackathon code projects.
 
 ## Quick start
 
+Open a terminal in JupyterLab (**File > New > Terminal**, or the **Terminal**
+tile on the Launcher) and run:
+
 ```bash
+ls                                  # already see hackathon-shared-repo? skip the clone
 git clone https://github.com/NMFS-PAM-Glider/hackathon-shared-repo.git
 cd hackathon-shared-repo
 
 pip install -r requirements.txt     # Python
 Rscript install.R                   # R, only if you want the R examples
-
-jupyter lab
 ```
 
-Then open `notebooks/` and work through them in order, starting with
-`01_hello_world_python.ipynb` or `01_hello_world_r.ipynb`.
+Python, R and JupyterLab are already installed -- the packages above are all you
+need to add.
+
+Then open `notebooks/` in the file browser and work through them in order,
+starting with `01_hello_world_python.ipynb` or `01_hello_world_r.ipynb`.
 
 New to Jupyter, Python or R? Read **[docs/getting_started.md](docs/getting_started.md)**
-first -- it assumes no prior experience.
+first.
 
 ## What is in here
 
@@ -30,19 +35,21 @@ first -- it assumes no prior experience.
 | `03_aquaview_stac_*` | Pull real ocean data from the public AquaView catalogue |
 | `04_glider_satellite_*` | Compare a glider track against satellite observations |
 | `05_hackathon_data_*` | List the hackathon data folder and open a file |
+| `06_aquaview_discovery_*` | **AQUAVIEW workshop** -- follow along during the session |
 
 Every example exists twice -- once in Python, once in R -- so use whichever
 language you prefer.
 
 ```
-notebooks/        the worked examples, 01-05, Python and R
+notebooks/        the worked examples, 01-05, plus workshop notebooks
 docs/             getting started guide and code standards
 requirements.txt  Python packages
 install.R         R packages
 ```
 
 Notebooks 01-03 are short and build on each other. 04 is a longer, real-world
-workflow contributed by NOAA CoastWatch, and 05 opens the hackathon data. See
+workflow contributed by NOAA CoastWatch, and 05 opens the hackathon data. **06 is
+for the live AQUAVIEW session -- open it and follow along when that runs.** See
 [notebooks/README.md](notebooks/README.md) for what each one covers.
 
 ## The hackathon data

@@ -10,6 +10,7 @@ pick whichever language you prefer, or read both to compare.
 | 03 | AquaView -- pull real ocean data from a public catalogue | `03_aquaview_stac_python.ipynb` | `03_aquaview_stac_r.ipynb` | Yes |
 | 04 | Glider vs satellite -- a full real-world workflow | `04_glider_satellite_python.ipynb` | `04_glider_satellite_r.ipynb` | Yes |
 | 05 | The hackathon data -- list the folder and open a file | `05_hackathon_data_python.ipynb` | `05_hackathon_data_r.ipynb` | No |
+| 06 | **AQUAVIEW workshop** -- follow along during the session | `06_aquaview_discovery_python.ipynb` | `06_aquaview_discovery_r.ipynb` | Yes |
 
 Start at 01 even if you have used Python or R before -- it takes a minute and
 confirms your environment is set up correctly.
@@ -141,6 +142,29 @@ pd.read_csv(path, usecols=["time", "depth", "temperature"])
 ```
 
 Start from the small files and scale up once your code works.
+
+---
+
+## 06 -- AQUAVIEW workshop
+
+**These are the notebooks for the live AQUAVIEW session.** Open the one for your
+language and follow along as the session runs -- you do not need to have read it
+beforehand. They work just as well on your own afterwards, if you miss the
+session or want a second pass.
+
+Unlike 01-05, which build on each other, these stand alone. Where notebook 03
+shows the mechanics of a single STAC request, these are about **finding things**:
+one catalogue over 600,000+ datasets from ~90 sources, and how to get at them
+without knowing any dataset IDs up front.
+
+The session covers searching a place and time window, narrowing a broad result
+to the sources you actually want, comparing what each source holds, and
+inspecting a single dataset down to its assets -- worked through on the Hawai'i
+box, so it lines up with the Glider Rodeo area.
+
+They use a proper STAC client rather than raw HTTP: `pystac-client` in Python and
+`rstac` in R, both installed by the repo's dependency files. Everything runs live
+against the public catalogue -- no accounts or keys.
 
 ---
 
