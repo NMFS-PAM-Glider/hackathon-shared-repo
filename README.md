@@ -1,4 +1,4 @@
-# hackathon-shared-repo
+# Glider Rodeo Hackathon Repository: hackathon-shared-repo
 A place to share hackathon code projects.
 
 **Repository:** https://github.com/NMFS-PAM-Glider/hackathon-shared-repo
