@@ -5,8 +5,13 @@ A place to share hackathon code projects.
 
 ## Quick start
 
-Open a terminal in JupyterLab (**File > New > Terminal**, or the **Terminal**
-tile on the Launcher) and run:
+**1. Start your server:** https://workshop.nmfs-openscapes.2i2c.cloud
+
+Log in with the provided password. That gives you JupyterLab in your browser,
+with Python and R already installed.
+
+**2. Set up the repo.** Open a terminal in JupyterLab (**File > New > Terminal**,
+or the **Terminal** tile on the Launcher) and run:
 
 ```bash
 ls                                  # already see hackathon-shared-repo? skip the clone
@@ -17,11 +22,11 @@ pip install -r requirements.txt     # Python
 Rscript install.R                   # R, only if you want the R examples
 ```
 
-Python, R and JupyterLab are already installed -- the packages above are all you
-need to add.
+The packages above are all you need to add.
 
-Then open `notebooks/` in the file browser and work through them in order,
-starting with `01_hello_world_python.ipynb` or `01_hello_world_r.ipynb`.
+**3. Start working.** Open `notebooks/` in the file browser and work through them
+in order, starting with `01_hello_world_python.ipynb` or
+`01_hello_world_r.ipynb`.
 
 New to Jupyter, Python or R? Read **[docs/getting_started.md](docs/getting_started.md)**
 first.

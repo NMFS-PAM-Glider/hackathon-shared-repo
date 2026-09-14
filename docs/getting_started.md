@@ -10,7 +10,16 @@ skip to [Running a script](#running-a-script-without-a-notebook).
 Python, R and JupyterLab are already installed for you. All you need is the repo
 and the packages the notebooks use.
 
-### 1. Open a terminal
+### 1. Start your server
+
+Go to **https://workshop.nmfs-openscapes.2i2c.cloud** and log in with the
+password you were given.
+
+The first start takes a minute or two while your server is created. When it is
+ready you land in JupyterLab: a file browser down the left, and a Launcher tab
+of big tiles in the middle. Everything below happens in there.
+
+### 2. Open a terminal
 
 These commands are typed into a terminal, not into a notebook. There are two
 ways to open one in JupyterLab -- either is fine:
@@ -23,7 +32,7 @@ ways to open one in JupyterLab -- either is fine:
 Either way, a panel opens in a new tab. That is your terminal -- type into it
 and press Enter.
 
-### 2. Get the repo
+### 3. Get the repo
 
 It may already be there. Look first:
 
@@ -50,7 +59,7 @@ cd hackathon-shared-repo
 Either way you should now be inside the repo. Check with `pwd` -- the path it
 prints should end in `hackathon-shared-repo`.
 
-### 3. Install the packages
+### 4. Install the packages
 
 ```bash
 pip install -r requirements.txt
