@@ -4,7 +4,7 @@
 
 install.packages(c(
   # Used by the starter notebooks in notebooks/
-  "jsonlite",       # read JSON from the AquaView STAC API
+  "jsonlite",       # read JSON from the AQUAVIEW STAC API
   "ggplot2",        # plots
 
   # Used by notebook 04
@@ -15,6 +15,7 @@ install.packages(c(
 
   # Used by notebook 06
   "rstac",          # STAC catalogue client
+  "ncdf4",          # open gridded satellite data over OPeNDAP
 
   # The R kernel for Jupyter. After installing, register it with:
   #   IRkernel::installspec()

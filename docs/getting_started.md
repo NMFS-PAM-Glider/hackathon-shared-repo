@@ -112,7 +112,7 @@ almost certainly running it with the Python kernel.
 |---|---|---|
 | `01_hello_world_*` | Check your setup works | No |
 | `02_files_and_github_*` | Reading and writing files, git | No |
-| `03_aquaview_stac_*` | Pulling real data from AquaView | Yes |
+| `03_aquaview_stac_*` | Pulling real data from AQUAVIEW | Yes |
 | `04_glider_satellite_*` | Comparing a glider track with satellite data | Yes |
 | `05_hackathon_data_*` | Opening the hackathon data files | No |
 | `06_aquaview_discovery_*` | AQUAVIEW workshop -- follow along in the session | Yes |
