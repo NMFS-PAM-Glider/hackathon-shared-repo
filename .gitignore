@@ -1,4 +1,28 @@
-.Rproj.user
+# Data files are not committed -- they are usually too big for a repository,
+# and GitHub rejects anything over 100 MB.
+*.nc
+*.h5
+*.parquet
+
+# Output written by the notebooks
+outputs/
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# R / RStudio
 .Rhistory
 .RData
 .Ruserdata
+.Rproj.user/
+Rplots.pdf
+
+# OS
+.DS_Store
