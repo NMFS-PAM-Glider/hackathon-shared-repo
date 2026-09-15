@@ -7,7 +7,7 @@ pick whichever language you prefer, or read both to compare.
 |---|---|---|---|---|
 | 01 | Hello world -- check your setup works | `01_hello_world_python.ipynb` | `01_hello_world_r.ipynb` | No |
 | 02 | Files and GitHub -- write, read, commit | `02_files_and_github_python.ipynb` | `02_files_and_github_r.ipynb` | No |
-| 03 | AquaView -- pull real ocean data from a public catalogue | `03_aquaview_stac_python.ipynb` | `03_aquaview_stac_r.ipynb` | Yes |
+| 03 | AQUAVIEW -- pull real ocean data from a public catalogue | `03_aquaview_stac_python.ipynb` | `03_aquaview_stac_r.ipynb` | Yes |
 | 04 | Glider vs satellite -- a full real-world workflow | `04_glider_satellite_python.ipynb` | `04_glider_satellite_r.ipynb` | Yes |
 | 05 | The hackathon data -- list the folder and open a file | `05_hackathon_data_python.ipynb` | `05_hackathon_data_r.ipynb` | No |
 | 06 | **AQUAVIEW workshop** -- follow along during the session | `06_aquaview_discovery_python.ipynb` | `06_aquaview_discovery_r.ipynb` | Yes |
@@ -49,7 +49,7 @@ The space-and-time matching step is the genuinely tricky part, and both versions
 show a working approach to it.
 
 It also shows a second route to ERDDAP. Notebook 03 reaches ERDDAP through the
-AquaView STAC catalogue; this one goes directly, using `erddapy` in Python and
+AQUAVIEW STAC catalogue; this one goes directly, using `erddapy` in Python and
 `rerddap` in R.
 
 ### What it needs
@@ -154,17 +154,38 @@ session or want a second pass.
 
 Unlike 01-05, which build on each other, these stand alone. Where notebook 03
 shows the mechanics of a single STAC request, these are about **finding things**:
-one catalogue over 600,000+ datasets from ~90 sources, and how to get at them
-without knowing any dataset IDs up front.
+one catalogue over 600,000+ datasets from around a hundred sources, and how to get
+at them without knowing any dataset IDs up front.
 
-The session covers searching a place and time window, narrowing a broad result
-to the sources you actually want, comparing what each source holds, and
-inspecting a single dataset down to its assets -- worked through on the Hawai'i
-box, so it lines up with the Glider Rodeo area.
+### What it does
+
+**Part A -- meet the catalogue.** Find a source without knowing its ID, search a
+place and time window, narrow a broad result to the sources you want, and count
+what each one holds before downloading anything.
+
+**Part B -- is the satellite right?** Worked through on the Hawaiʻi box, so it
+lines up with the Glider Rodeo area:
+
+1. Finds the Seaglider deployments in the box through the catalogue, and picks
+   `sg626` (a completed 2025 deployment, so the numbers stay reproducible).
+2. Loads two weeks of its track -- about 84,000 CTD measurements down to 900 m --
+   and plots the track and a temperature section.
+3. Finds NOAA's Geo-polar Blended SST in the same catalogue, opens it lazily, and
+   matches it to the glider's top 10 m day by day.
+4. Reports bias, RMSE and correlation (about -0.04 °C, 0.11 °C and 0.94), then
+   shows the other sources in the same box -- vessel traffic, species occurrence,
+   wave models -- that a single-server workflow cannot reach.
+
+Part B asks the same question as notebook 04, but finds both datasets through one
+catalogue instead of addressing each server directly.
+
+### What it needs
 
 They use a proper STAC client rather than raw HTTP: `pystac-client` in Python and
-`rstac` in R, both installed by the repo's dependency files. Everything runs live
-against the public catalogue -- no accounts or keys.
+`rstac` in R. Part B also reads gridded satellite data: `xarray` + `netcdf4` in
+Python, `ncdf4` in R. All are covered by the repo's dependency files. Everything
+runs live against the public catalogue and public ERDDAP servers -- no accounts or
+keys. The satellite step takes a minute or two.
 
 ---
 

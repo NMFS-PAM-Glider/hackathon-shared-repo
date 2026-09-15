@@ -37,7 +37,7 @@ first.
 |---|---|
 | `01_hello_world_*` | Check your setup works |
 | `02_files_and_github_*` | Read and write files, and get your work onto GitHub |
-| `03_aquaview_stac_*` | Pull real ocean data from the public AquaView catalogue |
+| `03_aquaview_stac_*` | Pull real ocean data from the public AQUAVIEW catalogue |
 | `04_glider_satellite_*` | Compare a glider track against satellite observations |
 | `05_hackathon_data_*` | List the hackathon data folder and open a file |
 | `06_aquaview_discovery_*` | **AQUAVIEW workshop** -- follow along during the session |
