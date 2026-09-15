@@ -1,0 +1,47 @@
+# Seaglider SGX sg274 (PIFSC) - Glider Rodeo 2026
+# Platform/sensor details from shared-public/GliderRodeo/PAM_Glider_Specs.csv and the sg README.
+glider_name: sg274
+deployment_id: sg274_20260128
+reader: seaglider
+source_folder: sg274_20260128
+data_mode: delayed
+
+files:
+  engineering: "*_flight_timeseries_engineering.csv"
+  modeled: "*_flight_timeseries_modeled.csv"
+  science: "*_science_timeseries.csv"
+  gps: "*_GPS_timeseries.csv"
+
+platform:
+  serial_number: sg274
+  model: University of Washington Seaglider SGX
+  model_vocabulary: https://vocab.nerc.ac.uk/collection/B76/current/B7600034/
+  maker: University of Washington
+  maker_vocabulary: https://vocab.nerc.ac.uk/collection/L35/current/MAN0024/
+  wmo_id: ""
+  battery_type: Lithium primary
+  battery_capacity: ""
+
+sensors:
+  - type: CTD
+    serial: unknown
+    model: RBR Legato CTD  # specs say "RBR Legato CTD"; generation (3 or 4) and serial not in the rodeo files
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/130/
+    model_vocabulary: ""
+    maker: RBR
+    maker_vocabulary: https://vocab.nerc.ac.uk/collection/L35/current/MAN0049/
+  - type: HYDROPHONE
+    serial: "635054"
+    model: HTI-92WB
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/369/
+    model_vocabulary: ""
+    maker: High Tech Inc.
+    maker_vocabulary: ""
+    attributes:
+      pam_recorder: WISPR 3.0
+      hydrophone_sensitivity: -164.1 dB re 1 V/uPa
+
+attributes:
+  institution: NOAA Pacific Islands Fisheries Science Center
+  contributing_institutions: NOAA Pacific Islands Fisheries Science Center
+  processing: Seaglider CSVs prepared with agate v1.3.20260902 (https://sfregosi.github.io/agate/)

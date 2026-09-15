@@ -1,0 +1,75 @@
+# Slocum G3S capex987 (Teledyne) - Glider Rodeo 2026
+# Platform/sensor/contributor details from capex987-20260128.yml shipped with the data
+# and shared-public/GliderRodeo/PAM_Glider_Specs.csv.
+glider_name: capex987
+deployment_id: capex987-20260128
+reader: slocum
+source_folder: capex987_20260128
+data_mode: delayed
+
+files:
+  engineering: "*_flight_timeseries_engineering.csv"
+  science: "*_science_timeseries.csv"
+  gps: "*_GPS_timeseries.csv"
+
+platform:
+  serial_number: unit_987
+  model: Teledyne Webb Research Slocum G3S glider
+  model_vocabulary: https://vocab.nerc.ac.uk/collection/B76/current/B7600029/
+  maker: Teledyne Webb Research
+  maker_vocabulary: https://vocab.nerc.ac.uk/collection/L35/current/MAN0020/
+  wmo_id: ""
+  battery_type: Lithium rechargeable standard
+  battery_capacity: 215 Ah
+
+sensors:
+  - type: CTD
+    serial: "205806"
+    model: RBR Legato3 CTD
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/130/
+    model_vocabulary: https://vocab.nerc.ac.uk/collection/L22/current/TOOL1745/
+    maker: RBR
+    maker_vocabulary: https://vocab.nerc.ac.uk/collection/L35/current/MAN0049/
+    calibration_date: "2020-12-05"
+    attributes:
+      comment: flow through
+  - type: HYDROPHONE
+    serial: H001896
+    model: M36-V35-EXBH-100
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/369/
+    maker: ""
+    calibration_date: "2025-03-21"
+    attributes:
+      pam_recorder: JASCO OceanObserver G9 5.2 (serial 1195)
+  - type: HYDROPHONE
+    serial: H001305
+    model: M36-V35-100
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/369/
+    maker: ""
+    calibration_date: "2025-03-21"
+    attributes:
+      pam_recorder: JASCO OceanObserver G9 5.2 (serial 1195)
+  - type: HYDROPHONE
+    serial: H001202
+    model: M36-V35-100
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/369/
+    maker: ""
+    calibration_date: "2025-03-21"
+    attributes:
+      pam_recorder: JASCO OceanObserver G9 5.2 (serial 1195)
+  - type: HYDROPHONE
+    serial: H001203
+    model: M36-V35-100
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/369/
+    maker: ""
+    calibration_date: "2025-03-21"
+    attributes:
+      pam_recorder: JASCO OceanObserver G9 5.2 (serial 1195)
+
+attributes:
+  institution: NOAA SWFSC Ecosystem Science Division
+  contributing_institutions: NOAA SWFSC Ecosystem Science Division, Teledyne Webb Research, JASCO Applied Sciences
+  contributor_name: Kourtney Burger
+  contributor_role: Data Manager
+  contributor_email: nmfs.swfsc.esd-gliders@noaa.gov
+  processing: Slocum CSVs prepared with the SWFSC ESD glider processing (https://swfsc.github.io/glider-lab-manual/)

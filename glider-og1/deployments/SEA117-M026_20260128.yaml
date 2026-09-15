@@ -1,0 +1,54 @@
+# SeaExplorer SEA117, mission M026 (ALSEAMAR) - Glider Rodeo 2026
+# Platform/sensor/contributor details from SEA117-M026_20260128.yaml shipped with the data
+# and shared-public/GliderRodeo/PAM_Glider_Specs.csv.
+glider_name: SEA117
+deployment_id: SEA117-M026_20260128
+reader: seaexplorer
+source_folder: SEA117-M026_20260128
+data_mode: delayed
+
+files:
+  engineering: "*_flight_timeseries_engineering.csv"
+  science: "*_science_timeseries.csv"
+  gps: "*_GPS_timeseries.csv"
+  dead_reckoned: "*_dead-reckoned_timeseries.csv"
+
+platform:
+  serial_number: sea117
+  model: Alseamar SeaExplorer glider  # TODO: X2 or X3 not stated in the rodeo files
+  model_vocabulary: ""
+  maker: ALSEAMAR
+  maker_vocabulary: ""
+  wmo_id: ""
+  battery_type: Lithium rechargeable
+  battery_capacity: Unknown
+
+sensors:
+  - type: CTD
+    serial: "230630"
+    model: RBR Legato3 CTD
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/130/
+    model_vocabulary: https://vocab.nerc.ac.uk/collection/L22/current/TOOL1745/
+    maker: RBR
+    maker_vocabulary: https://vocab.nerc.ac.uk/collection/L35/current/MAN0049/
+    attributes:
+      comment: flow through CTD, factory calibrated
+  - type: HYDROPHONE
+    serial: "666"
+    model: ALSEAMAR Auris Acoustic Antenna
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/369/
+    model_vocabulary: ""
+    maker: ALSEAMAR
+    maker_vocabulary: ""
+    attributes:
+      description: 4 hydrophones in a tetrahedral configuration, 4 channels at 96 kHz, AURIS onboard processing
+
+attributes:
+  institution: NOAA SWFSC Ecosystem Science Division
+  contributing_institutions: NOAA SWFSC Ecosystem Science Division, NOAA Pacific Islands Fisheries Science Center, ALSEAMAR
+  contributor_name: Heidi Taylor, Jennifer Walsh, Anthony Cossio, Tegan Murray, Kourtney Burger, Samuel Woodman
+  contributor_role: Principal Investigator, Glider Pilot, Glider Pilot, Glider Pilot, Glider Pilot, Data Manager
+  contributor_email: nmfs.swfsc.esd-gliders@noaa.gov
+  comment: >-
+    PRELIMINARY data that require additional QA/QC. Piloting by ALSEAMAR; data analysis by NOAA
+    SWFSC and PIFSC. Converted from the CSV exports on the Glider Rodeo JupyterHub.
