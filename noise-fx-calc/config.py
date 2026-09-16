@@ -14,7 +14,7 @@ DEPLOYMENT_DATE = '20260128'  # matches the date embedded in the raw filenames
 # --- Environment: where does the raw data live? ---
 # Override with an env var (e.g. `PAM_RODEO_ENV=jupyterhub`) instead of editing this file, so the
 # same committed config works unchanged on JupyterHub and locally without commenting code in/out.
-ENVIRONMENT = os.environ.get('PAM_RODEO_ENV', 'jupyterhub')  # 'local' or 'jupyterhub'
+ENVIRONMENT = os.environ.get('PAM_RODEO_ENV', 'local')  # 'local' or 'jupyterhub'
 
 if ENVIRONMENT == 'jupyterhub':
     _sci_dir = f'/home/jovyan/shared-public/GliderRodeo/{GLIDER_ID}_{DEPLOYMENT_DATE}'
@@ -57,11 +57,13 @@ QC_APPLIED = False
 EXCLUDED_MODES = ['recovery']
 
 # --- Binning science variables for the per-mode comparisons (glider_noise_stats_plots.ipynb) ---
-BIN_VARS = ['temperature', 'salinity', 'density', 'soundVelocity', 'depth']
+BIN_VARS = ['temperature', 'salinity', 'density', 'soundVelocity', 'depth', 'latitude', 'longitude']
 BIN_WIDTHS = {
-    'temperature': 10,    # deg C
-    'salinity': 0.5,      # psu
-    'density': 2,         # kg/m3
-    'soundVelocity': 5,   # m/s
-    'depth': 100,         # m - dives go to ~1000 m here, smaller widths get too crowded
+    'temperature': 10,     # deg C
+    'salinity': 0.5,       # psu
+    'density': 2,          # kg/m3
+    'soundVelocity': 5,    # m/s
+    'depth': 100,          # m - dives go to ~1000 m here, smaller widths get too crowded
+    'latitude': 0.05,      # deg - rough default, adjust once you see the printed bin count
+    'longitude': 0.05,     # deg - rough default, adjust once you see the printed bin count
 }
