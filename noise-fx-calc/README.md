@@ -2,7 +2,7 @@
 
 ## Collaborators
 Aaron (Will) Deans | xxx | xxx | xxx   
-Julia Engdahl | Rutgers University, Center for Ocean Observing Leadership | engdahl@marine.rutgeres.edu   
+Julia Engdahl | Rutgers University, Center for Ocean Observing Leadership | engdahl@marine.rutgers.edu   
 Liz Ferguson | xxx | xxx | xxx   
 Kaitlin Palmer | xxx | xxx | xxx
 
