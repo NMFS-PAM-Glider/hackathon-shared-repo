@@ -143,11 +143,22 @@ def setup_map_axes(ax, extent, left_labels=True):
 
     left_labels: set False for a panel sharing its y-axis with one to its left (e.g. in a
     side-by-side comparison), so the latitude labels aren't repeated on every panel.
+
+    Land/coastline come from Natural Earth shapefiles that cartopy downloads over the internet
+    the first time they're drawn - on a locked-down JupyterHub with no outbound internet, that
+    fetch fails. Forcing the geometries to evaluate here (inside try/except) surfaces that
+    failure immediately and lets the map degrade to gridlines-only instead of raising later at
+    plt.show()/savefig() time, which would abort the cell before the figure ever gets saved.
     """
-    land_10m = cfeature.NaturalEarthFeature('physical', 'land', '10m', edgecolor='face', facecolor='lightgray')
     ax.set_extent(extent, crs=ccrs.PlateCarree())
-    ax.add_feature(land_10m)
-    ax.add_feature(cfeature.COASTLINE.with_scale('10m'))
+    try:
+        land_10m = cfeature.NaturalEarthFeature('physical', 'land', '10m', edgecolor='face', facecolor='lightgray')
+        list(land_10m.geometries())  # force the download now, so failure is caught here
+        ax.add_feature(land_10m)
+        ax.add_feature(cfeature.COASTLINE.with_scale('10m'))
+    except Exception as e:
+        print(f'Could not load Natural Earth land/coastline data (no internet access?): {e}')
+        print('Continuing without land/coastline - gridlines only.')
     gl = ax.gridlines(draw_labels=True, linewidth=0.3, color='gray', alpha=0.5, linestyle='--')
     gl.top_labels = False
     gl.right_labels = False

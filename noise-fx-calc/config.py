@@ -14,7 +14,7 @@ DEPLOYMENT_DATE = '20260128'  # matches the date embedded in the raw filenames
 # --- Environment: where does the raw data live? ---
 # Override with an env var (e.g. `PAM_RODEO_ENV=jupyterhub`) instead of editing this file, so the
 # same committed config works unchanged on JupyterHub and locally without commenting code in/out.
-ENVIRONMENT = os.environ.get('PAM_RODEO_ENV', 'local')  # 'local' or 'jupyterhub'
+ENVIRONMENT = os.environ.get('PAM_RODEO_ENV', 'jupyterhub')  # 'local' or 'jupyterhub'
 
 if ENVIRONMENT == 'jupyterhub':
     _sci_dir = f'/home/jovyan/shared-public/GliderRodeo/{GLIDER_ID}_{DEPLOYMENT_DATE}'
