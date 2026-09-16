@@ -46,6 +46,7 @@ DEFAULT_OPTS = {
     "channel": None,        # spectrogram: which channel to draw
     "zrange": None,         # spectrogram: (zmin, zmax) shared across panels
     "residual_autoscale": False,  # let the residual pick its own color limits
+    "max_points": MAX_POINTS,     # per-trace budget for the line views
 }
 
 # Power is floored at this level before the log, so a digitally silent signal
@@ -90,25 +91,46 @@ def _opts(overrides: dict | None) -> dict:
 # decimation helpers
 # --------------------------------------------------------------------------
 def _minmax_decimate(x: np.ndarray, y: np.ndarray, max_points: int = MAX_POINTS):
-    """Thin a trace to ~max_points while preserving its envelope."""
+    """Thin a trace to ~max_points while preserving its envelope.
+
+    Below the limit the samples are returned untouched, so panels drawn from
+    equal-length signals are then identical point for point.
+
+    Above it the span is cut into buckets and each contributes its minimum and
+    maximum, which keeps the visual extent of a waveform that plain striding
+    would alias away.  The two are emitted at *fixed* positions — the bucket's
+    start and midpoint — rather than at the samples the extrema happen to fall
+    on.  That matters for comparing panels: a filter moves where the extremes
+    sit inside a bucket, so extremum-positioned vertices make the input and
+    output disagree about the time of a feature by up to a bucket width, even
+    though both frames carry a bit-identical time column.  Anchoring to the
+    bucket makes every panel of the same length share one x grid.
+
+    The order of the pair still follows which extreme came first, so the
+    up/down shape of the envelope survives.  Within a bucket the polyline is an
+    envelope rather than the signal either way — to read true sample times,
+    raise *max_points* above the sample count or shorten the window.
+    """
     n = len(x)
     if n <= max_points:
         return x, y
 
     buckets = max(1, max_points // 2)
-    size = n // buckets
+    size = n // buckets  # >= 2, since n > max_points == 2 * buckets
     usable = buckets * size
     xb = x[:usable].reshape(buckets, size)
     yb = y[:usable].reshape(buckets, size)
 
-    lo, hi = yb.argmin(axis=1), yb.argmax(axis=1)
-    first, second = np.minimum(lo, hi), np.maximum(lo, hi)
     rows = np.arange(buckets)
+    lo, hi = yb.argmin(axis=1), yb.argmax(axis=1)
+    y_lo, y_hi = yb[rows, lo], yb[rows, hi]
+    min_first = lo <= hi
 
     out_x = np.empty(buckets * 2, dtype=x.dtype)
     out_y = np.empty(buckets * 2, dtype=y.dtype)
-    out_x[0::2], out_x[1::2] = xb[rows, first], xb[rows, second]
-    out_y[0::2], out_y[1::2] = yb[rows, first], yb[rows, second]
+    out_x[0::2], out_x[1::2] = xb[:, 0], xb[:, size // 2]
+    out_y[0::2] = np.where(min_first, y_lo, y_hi)
+    out_y[1::2] = np.where(min_first, y_hi, y_lo)
 
     if usable < n:  # keep the tail so the axis still reaches the end
         out_x = np.append(out_x, x[-1])
@@ -154,11 +176,13 @@ def _base_layout(fig: go.Figure, title: str, x_label: str, y_label: str) -> go.F
     return fig
 
 
-def _line_traces(fig: go.Figure, df: pd.DataFrame, xcol: str) -> None:
+def _line_traces(
+    fig: go.Figure, df: pd.DataFrame, xcol: str, max_points: int = MAX_POINTS
+) -> None:
     """One decimated line per channel, colored consistently across panels."""
     x = df[xcol].to_numpy(dtype=np.float64)
     for i, col in enumerate(channel_columns(df)):
-        xs, ys = _minmax_decimate(x, df[col].to_numpy(dtype=np.float64))
+        xs, ys = _minmax_decimate(x, df[col].to_numpy(dtype=np.float64), max_points)
         fig.add_trace(
             go.Scattergl(
                 x=xs, y=ys, mode="lines", name=col, legendgroup=col,
@@ -167,9 +191,26 @@ def _line_traces(fig: go.Figure, df: pd.DataFrame, xcol: str) -> None:
         )
 
 
+def resolution_note(n_samples: int, span: float, max_points: int) -> str:
+    """One line describing whether the line views are drawing real samples."""
+    if n_samples <= max_points:
+        return (
+            f"Full resolution: all {n_samples:,} samples are drawn, so every panel "
+            "shares identical sample times."
+        )
+    buckets = max(1, max_points // 2)
+    return (
+        f"Drawing a min/max envelope: {n_samples:,} samples reduced to "
+        f"{buckets:,} buckets of {span / buckets * 1e3:.2f} ms each. Vertices are "
+        "anchored to the bucket, not to individual samples, so zooming in past "
+        "that width shows the envelope rather than real samples. Shorten the "
+        "window or raise the point budget to reach full resolution."
+    )
+
+
 def _render_waveform(df: pd.DataFrame, title: str, opts: dict) -> go.Figure:
     fig = go.Figure()
-    _line_traces(fig, df, x_column(df))
+    _line_traces(fig, df, x_column(df), opts["max_points"])
     return _base_layout(
         fig, title, df.attrs.get("x_label", "Time (s)"),
         df.attrs.get("y_label", "Amplitude"),
@@ -182,7 +223,7 @@ def _render_spectrum(df: pd.DataFrame, title: str, opts: dict) -> go.Figure:
         df, window=opts["window"], scale=opts["scale"], detrend=True
     )
     fig = go.Figure()
-    _line_traces(fig, spec, x_column(spec))
+    _line_traces(fig, spec, x_column(spec), opts["max_points"])
     _base_layout(
         fig, title, spec.attrs.get("x_label", "Frequency (Hz)"),
         spec.attrs.get("y_label", "Magnitude"),

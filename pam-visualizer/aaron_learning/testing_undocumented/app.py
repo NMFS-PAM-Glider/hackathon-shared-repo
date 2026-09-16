@@ -15,19 +15,20 @@ import streamlit as st
 
 from data import channel_columns, load_data
 from plots import (
+    MAX_POINTS,
     VIEWS,
     axis_revisions,
     link_figures,
     plot_difference,
     plot_original,
     plot_transformed,
+    resolution_note,
     spectrogram_range,
 )
 from transformers import TRANSFORMS, get_transform, list_transforms
 
 # DATA_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = "/home/jovyan/shared-public/GliderRodeo/audio"
-
+DATA_DIR = "/home/jovyan/shared-public/GliderRodeo/audio" #   When in JupyterHub
 
 def transform_controls(name: str, nyquist: float) -> dict:
     """Build a sidebar widget per :class:`Param` and collect the chosen values."""
@@ -107,6 +108,17 @@ def view_controls(df, output_domain: str) -> tuple[str, dict, bool]:
                  "On: the residual is stretched to its own range, which brings out "
                  "a quiet residual but makes it look as loud as the input.",
         )
+
+    if view in ("Waveform", "Spectrum"):
+        opts["max_points"] = int(st.sidebar.select_slider(
+            "Points per trace",
+            [1000, 2000, 4000, 8000, 16000, 32000, 64000], value=MAX_POINTS,
+            help="How many points each line may use. Above this the trace is "
+                 "drawn as a min/max envelope; at or below it every sample is "
+                 "drawn and panels line up sample for sample.",
+        ))
+        span = float(df[df.attrs["x"]].iloc[-1] - df[df.attrs["x"]].iloc[0])
+        st.sidebar.caption(resolution_note(len(df), span, opts["max_points"]))
 
     link_x = st.sidebar.checkbox(
         "Link X axes", value=True,

@@ -69,6 +69,18 @@ def _sos_filter(df: pd.DataFrame, sos) -> pd.DataFrame:
 # --------------------------------------------------------------------------
 # transforms — time domain in, time domain out
 # --------------------------------------------------------------------------
+def _odd(n: int) -> int:
+    """Round a window length up to the next odd number.
+
+    A centered rolling window can only be truly symmetric when it spans an odd
+    number of samples; pandas resolves an even window by leaning half a sample
+    to one side, which shows up as a constant +0.5-sample lag. Forcing odd
+    keeps these smoothers strictly zero-phase.
+    """
+    n = max(1, int(n))
+    return n + 1 if n % 2 == 0 else n
+
+
 def passthrough(df: pd.DataFrame) -> pd.DataFrame:
     """Return the input unchanged (useful as a residual sanity check)."""
     return carry_attrs(df.copy(), df)
@@ -108,8 +120,12 @@ def notch(df: pd.DataFrame, freq_hz: float = 60.0, q: float = 30.0) -> pd.DataFr
 
 
 def moving_average(df: pd.DataFrame, window_ms: float = 1.0) -> pd.DataFrame:
-    """Centered boxcar smoother; window given in milliseconds."""
-    n = max(1, int(round(window_ms * 1e-3 * df.attrs["sample_rate"])))
+    """Centered boxcar smoother; window given in milliseconds.
+
+    Zero-phase: the window is forced to an odd length so it sits symmetrically
+    on the sample it labels.
+    """
+    n = _odd(round(window_ms * 1e-3 * df.attrs["sample_rate"]))
     out = df.copy()
     for col in channel_columns(df):
         out[col] = df[col].rolling(n, center=True, min_periods=1).mean()
@@ -135,9 +151,13 @@ def normalize(df: pd.DataFrame, mode: str = "peak") -> pd.DataFrame:
 
 
 def envelope(df: pd.DataFrame, smooth_ms: float = 5.0) -> pd.DataFrame:
-    """Analytic (Hilbert) amplitude envelope, optionally smoothed."""
+    """Analytic (Hilbert) amplitude envelope, optionally smoothed.
+
+    Zero-phase: the Hilbert magnitude is phase-free and the smoothing window is
+    forced to an odd length so it stays centered.
+    """
     out = df.copy()
-    n = max(1, int(round(smooth_ms * 1e-3 * df.attrs["sample_rate"])))
+    n = _odd(round(smooth_ms * 1e-3 * df.attrs["sample_rate"]))
     for col in channel_columns(df):
         env = np.abs(signal.hilbert(df[col].to_numpy(dtype=np.float64)))
         out[col] = pd.Series(env).rolling(n, center=True, min_periods=1).mean().to_numpy()
