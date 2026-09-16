@@ -15,3 +15,16 @@ pydap
 
 # For notebook 06: STAC catalogue client.
 pystac-client
+
+# For notebook 07: noise processing. These are what NoiseApp (YAWN) needs.
+# NoiseApp itself is not on PyPI; a copy lives in noiseprocessing/ in this repo.
+h5py
+scipy
+seaborn
+soundfile
+google-cloud-storage
+
+# For notebook 08: comparing NoiseApp against PyPAM. Installs as
+# lifewatch-pypam but imports as `pypam`.
+lifewatch-pypam
+pyhydrophone

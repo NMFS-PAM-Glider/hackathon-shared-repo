@@ -11,6 +11,8 @@ pick whichever language you prefer, or read both to compare.
 | 04 | Glider vs satellite -- a full real-world workflow | `04_glider_satellite_python.ipynb` | `04_glider_satellite_r.ipynb` | Yes |
 | 05 | The hackathon data -- list the folder and open a file | `05_hackathon_data_python.ipynb` | `05_hackathon_data_r.ipynb` | No |
 | 06 | **AQUAVIEW workshop** -- follow along during the session | `06_aquaview_discovery_python.ipynb` | `06_aquaview_discovery_r.ipynb` | Yes |
+| 07 | Noise processing -- run the analysis, plot it, export it | `07_noise_processing_python.ipynb` | -- | Yes |
+| 08 | Noise processing -- checking the output against PyPAM | `08_pypam_validation_python.ipynb` | -- | No |
 
 Start at 01 even if you have used Python or R before -- it takes a minute and
 confirms your environment is set up correctly.
@@ -186,6 +188,57 @@ They use a proper STAC client rather than raw HTTP: `pystac-client` in Python an
 Python, `ncdf4` in R. All are covered by the repo's dependency files. Everything
 runs live against the public catalogue and public ERDDAP servers -- no accounts or
 keys. The satellite step takes a minute or two.
+
+---
+
+## 07 -- Noise processing
+
+### What it does
+
+Turns raw hydrophone audio into calibrated soundscape metrics with NoiseApp
+(YAWN). Point it at a folder of audio on Google Cloud, give it a hydrophone
+calibration, and it writes hybrid millidecade, third-octave, decade and
+broadband levels to HDF5. From there you open that HDF5 and make the standard
+plots -- spectral probability density, LTSA, third-octave bands -- or export a
+metric to CSV.
+
+Six worked examples, growing in scale:
+
+1. A single deployment, start to finish
+2. Opening an HDF5 you already have and exporting it
+3. A batch run over all seven Glider Rodeo deployments
+4. Recovering what is in an HDF5 you wrote weeks ago, and every plotting option
+5. WHICEAS 2020 -- thirteen drifting recorders, each with its own calibration
+6. WHICEAS 2026 -- the same survey, six years on
+
+Section 4 is the one to read first if you are not sure what you are looking at.
+
+
+## 08 -- Checking the noise output against PyPAM
+
+Does NoiseApp agree with [PyPAM](https://lifewatch-pypam.readthedocs.io)? This
+runs the same hybrid millidecade analysis in both tools over one file and
+overlays the two mean spectra, then reports the offset between them.
+
+Part 1 uses a local WAV. Parts 2 and 3 simulate their own audio, so they run as
+they stand -- start with one of those. Part 2 is the minimal version of the
+check, and its closing cell traces the small residual differences to specific
+lines of source. Part 3 is the full tour: YAWN in three calibration modes, CSV
+export, then the comparison and its plots.
+
+---
+
+## What 07 and 08 need
+
+**The noise analysis package is already in this repo**, in
+[`noiseprocessing/`](../noiseprocessing/) -- nothing to clone. Both notebooks
+open with a setup cell that puts it on `sys.path`; run that cell first and the
+imports work. See that folder's README for where the code came from and how to
+re-sync it.
+
+
+`google-cloud-storage` is only needed to read audio straight from a `gs://`
+bucket -- everything else works on local files without it.
 
 ---
 
