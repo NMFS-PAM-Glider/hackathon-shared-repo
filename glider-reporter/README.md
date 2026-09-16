@@ -1,4 +1,6 @@
-# Project Title
+# Glider-Reporter: 
+
+## A Flexible Template for Building Markdown Reports for UW Oceanographic Gliders
 
 ## Collaborators
 
@@ -31,6 +33,8 @@ Optional: standardized datasets [Glider 1.0] or User Dataset
 - If user dataset, they will match fields to standardized datasets (as needed)
 
 ### Workflow
+
+**Github Repository:** glider-reporter (<https://github.com/shannonrankin/glider-reporter>)
 
 ![](glider-reporter.drawio.png)
 
