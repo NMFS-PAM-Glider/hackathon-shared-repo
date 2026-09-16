@@ -26,7 +26,13 @@ Supporting scripts (imported by the notebooks above, not run directly):
 
 ## Background
 
+As a platform for passive acoustic monitoring, gliders are remarkably quiet. Nevertheless, they must contend with sources of self-noise (Grasso et al., 2023) and flow noise (Cauchy, 2026; Fregosi et al., 2020). Less-predictable external sources, including wind (Shajahan et al., 2025) and human activity (Hildebrand, 2009), also contribute to the noise recorded by PAM platforms. We expect that noise may limit our ability to acoustically detect marine mammals by lowering signal-to-noise ratios (SNR).
+
+To evaluate the effect of noise on marine mammal detection, it is helpful to first identify the conditions which yield elevated noise levels. We must determine: What variables (EX. glider mode, depth, location, etc.) affect noise levels, and how? Are these effects broadband (affecting all frequencies) or narrowband (affecting only select frequency bands)? Answering these questions will allow us to identify the times when noise conditions may mask signals of interest. Future work will be able to determine whether these conditions significantly reduce the probability of signal detection.
+
 ## Goals
+The **Noise Profiler** tool will output a slideshow-based automated report summarizing how noise levels are linked to input variables of interest. The slideshow will include plots characterizing the effect of noise sources that may impact passive acoustic gliders – including mode, depth, location, and environmental variables – on broadband and hybrid-millidecade band levels. These will allow the user to easily visualize which conditions contribute to elevated noise levels, and which frequency bands are most affected.
+
 
 ## Methods
 
