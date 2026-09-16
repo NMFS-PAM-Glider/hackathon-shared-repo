@@ -3,7 +3,7 @@
 ## Collaborators
 Aaron Deans | Scripps Institution of Oceanography, Machine Listening Lab | wadeans@ucsd.edu   
 Julia Engdahl | Rutgers University, Center for Ocean Observing Leadership | engdahl@marine.rutgers.edu   
-Liz Ferguson | xxx | xxx | xxx   
+Liz Ferguson | Ocean Science Analytics | eferguson@oceanscienceanalytics.com
 Kaitlin Palmer | xxx | xxx | xxx
 
 ## Folder Structure
@@ -31,10 +31,66 @@ Supporting scripts (imported by the notebooks above, not run directly):
 ## Methods
 
 ### Datasets
+Data come from the NOAA Fisheries **PAM-Glider Rodeo** project ([site](https://nmfs-pam-glider.github.io/GliderRodeo/), [hardware overview](https://nmfs-pam-glider.github.io/GliderRodeo/content/hardware.html)), which is testing passive acoustic monitoring across multiple glider platforms and PAM sensor packages:
+
+| Glider platform | Manufacturer | PAM sensor(s) |
+|---|---|---|
+| Slocum Glider | Teledyne Webb | DMON, WISPR, OceanObserver |
+| Seaglider | U. Washington / OSU | WISPR |
+| Oceanscout | Hefring | — |
+| SeaExplorer | Alseamar | Auris |
+
+For this workflow, development and testing used a single deployment (Seaglider **SG607**) during the Rodeo deployment window as a proof of concept, with the pipeline written so that additional deployments can be substituted in.
+
+**Audio-derived variable**
+- **Hybrid millidecade (HMD) sound levels** — a compressed, standardized representation of the acoustic spectrum often used for sharing long-term soundscape data. Stored as HDF5, generated upstream by an existing PAM processing pipeline. 
+- **Sound Pressure Levels (SPL)** - broadband measurements of average acoustic energy, binned in a variable of ways by instrument and environmental variables. 
+
+**Instrument variables**
+- **Glider mode** (e.g., dive, climb, drift) from glider mission/flight data
+- **Glider depth**, binned in 20-m increments
+
+**Environmental variables**
+Binned environmental values were derived from on-board CTD instrumentation and include:
+- **Temperature**: 10 degree C temperature bins
+- **Salinity**: 0.5 ppt bins
+- **Seawater Density**: 2 kg/m³ bins
+- **Sound Velocity**: 5 meters per second (m/s) bins
+
+**Data availability**
+- Raw PAM data (FLAC/WAV) are not yet available for this workflow (as of 9/15/2026)
+- Processed HMD/noise data are available in this repository
+- Glider flight and environmental (science) data are available; NetCDF versions grouped by dive/profile via ERDDAP are also in progress
+
 
 ### Workflow
+The core workflow proceeds as follows:
 
-## Lessons Learned
+1. **Inputs**
+   - HDF5 hybrid millidecade levels and SPL values
+   - Glider depth, mode, and environmental data — CTD-derived sound speed, etc. 
+
+2. **Build a timetable**
+   Align glider mode, depth, and local sound speed to each HMD timestamp, producing a single reference table keyed on time. The timetable is written so additional variables can be appended without changing downstream steps.
+
+3. **Subset the data using the timetable**
+   The HMD dataset is split into subsets along each predictor of interest:
+   - One subset per **glider mode**
+   - One subset per **glider depth bin** (20 m)
+   - One subset per **local sound speed bin** (5 m/s)
+   - Extends to all environmental variables, binned as described above.
+     
+4. **Plot each subset**
+   For each predictor, generate a hybrid millidecade plot with curves color-coded by that predictor's bin/category (mode, depth bin, or sound speed bin). Plotting resolution (hybrid millidecade / broadband SPL) can be modified.
+
+5. **Output**
+   Compile the subset plots into an automated report (PPT, with PDF export). The reporting step uses `python-pptx`, driven by a dictionary mapping report sections to the figures/variables that populate them, so the report regenerates automatically as new deployments or predictors are added.
+
+
+## Lessons Learned & Future Directions
+Quality assessment of instrument noise proved tractable by examining audio characteristics against instrument and environmental features, offering a rapid way to flag regions of poor data quality. Leveraging cloud-based access to data through JupyterHub-formatted code further streamlined this critical first QA/QC step.
+
+We recommend extending the noise assessment to SPL by third-octave band, including bands linked to specific noise sources (e.g., flow noise), for finer diagnostic resolution. We also aim to incorporate bathymetric features into the summative analysis for each recorder.
 
 ## Presentation
 
