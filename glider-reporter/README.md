@@ -1,4 +1,4 @@
-# Glider-Reporter: 
+# Glider-Reporter:
 
 ## A Flexible Template for Building Markdown Reports for UW Oceanographic Gliders
 
@@ -21,10 +21,16 @@ Prelim Functions: [cite those created during rodeo]
 ## Methods
 
 1.  Process/System Ideation (Shannon, wee early hours of September 16!)
-2.  Create Prompts (Shannon's works with Gemini to turn her mad braindump into a series of Prompts to turn into issues to work with Github CoPilot
-3.  Create Repo (on Shannon's enterprise work account)
-4.  Add first issue, assign to Github Copilot (in browser); keep an eye on token usage.
-5.  Continue through prompts, modifying next steps as needed based on the output.
+2.  Create blank [glider-reporter repository](https://github.com/shannonrankin/glider-reporter) with starter .github/copilot-instructions.rmd
+3.  Create Prompts (Shannon's works with Gemini to turn her mad braindump into a series of Prompts to turn into issues to work with Github CoPilot:
+4.  Github Copilot via Issues (run in browser):
+    1.  [Issue#1 Setup Base Repo Structure & Standards](https://github.com/shannonrankin/glider-reporter/issues/1) (CoPilot ChatGPT Luna 5.6, 4 credits)
+    2.  [Issue#3 Function Issue Form Template, Registry Generator & Sample Reporting Function](https://github.com/shannonrankin/glider-reporter/issues/3) (Chat GPT Sol 5.6, 49 credits w/ additional issues to address errors)
+    3.  [Issue#7 Data Intake & Interactive Field Matching Engine (Quarto + ObservableJS)](https://github.com/shannonrankin/glider-reporter/issues/7) (Chat GPT Sol 5.6, 159 credits)
+    4.  [Issue#9 Interactive Function Explorer Dashboard (Quarto + ObservableJS)](https://github.com/shannonrankin/glider-reporter/issues/9) (Chat GPT Sol 5.6, 83 credits)
+    5.  Issue#11 [Interactive Report Builder Dashboard & Client-Side Bundle Exporter (Quarto + ObservableJS)](https://github.com/shannonrankin/glider-reporter/issues/11https://github.com/shannonrankin/glider-reporter/issues/11) (Chat GPT Sol 5.6, 111 credits)
+    6.  Issue#13 [Website Navigation, Documentation Interface & Citation/AI Reference Page](https://github.com/shannonrankin/glider-reporter/issues/13) (Chat GPT Sol 5.6, 61 credits)
+5.  Review site, update \_quarto.yml, build github pages, etc.
 
 ### Datasets
 
