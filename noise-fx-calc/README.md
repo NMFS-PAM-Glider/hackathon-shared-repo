@@ -1,13 +1,10 @@
 # PAM-Glider Noise Profiler
 
 ## Collaborators
-Aaron (Will) Deans | xxx | xxx | xxx
-
-Julia Engdahl | Rutgers University, Center for Ocean Observing Leadership | engdahl@marine.rutgeres.edu
-
-Liz Ferguson | xxx | xxx | xxx
-
-Katilin Palmer | xxx | xxx | xxx
+Aaron (Will) Deans | xxx | xxx | xxx   
+Julia Engdahl | Rutgers University, Center for Ocean Observing Leadership | engdahl@marine.rutgeres.edu   
+Liz Ferguson | xxx | xxx | xxx   
+Kaitlin Palmer | xxx | xxx | xxx
 
 ## Folder Structure
 This is a 3-phase approach:
