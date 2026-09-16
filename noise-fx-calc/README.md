@@ -3,8 +3,8 @@
 ## Collaborators
 Aaron Deans | Scripps Institution of Oceanography, Machine Listening Lab | wadeans@ucsd.edu   
 Julia Engdahl | Rutgers University, Center for Ocean Observing Leadership | engdahl@marine.rutgers.edu   
-Liz Ferguson | Ocean Science Analytics | eferguson@oceanscienceanalytics.com
-Kaitlin Palmer | xxx | xxx | xxx
+Liz Ferguson | Ocean Science Analytics | eferguson@oceanscienceanalytics.com   
+Kaitlin Palmer | NOAA | kaitlin.palmer@noaa.gov
 
 ## Folder Structure
 This is a 3-phase approach:
