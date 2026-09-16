@@ -103,9 +103,13 @@ We recommend extending the noise assessment to SPL by third-octave band, includi
 
 ## References
 Cauchy, P. (2026). Ocean sound measurements collected from underwater gliders with marginal effects of flow noise. The Journal of the Acoustical Society of America, 160(3), 1936–1947. https://doi.org/10.1121/10.0046395
+
 Fregosi, S., Harris, D. V., Matsumoto, H., Mellinger, D. K., Negretti, C., Moretti, D. J., Martin, S. W., Matsuyama, B., Dugan, P. J., & Klinck, H. (2020). Comparison of fin whale 20 Hz call detections by deep-water mobile autonomous and stationary recorders. The Journal of the Acoustical Society of America, 147(2), 961–977. https://doi.org/10.1121/10.0000617
+
 Grasso, M., Velázquez, L. P., & Van Uffelen, L. (2023). Quantifying Self-Noise of the Seaglider AUV Using a Passive Acoustic Monitor. Marine Technology Society Journal, 57(3), 30–42. https://doi.org/10.4031/MTSJ.57.3.5
+
 Hildebrand, J. A. (2009). Anthropogenic and natural sources of ambient noise in the ocean. Marine Ecology Progress Series, 395, 5–20. https://doi.org/10.3354/meps08353
+
 Shajahan, N., Halliday, W. D., Barclay, D. R., Melling, H., Neimi, A., & Insley, S. J. (2025). Wind-driven ambient noise characteristics in the Western Canadian arctic. JASA Express Letters, 5(2), 026001. https://doi.org/10.1121/10.0035591
 
 ## Acknowledgements
