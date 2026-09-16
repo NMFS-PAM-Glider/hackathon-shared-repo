@@ -1,7 +1,7 @@
 # PAM-Glider Noise Profiler
 
 ## Collaborators
-Aaron (Will) Deans | xxx | xxx | xxx   
+Aaron Deans | Scripps Institution of Oceanography, Machine Listening Lab | wadeans@ucsd.edu   
 Julia Engdahl | Rutgers University, Center for Ocean Observing Leadership | engdahl@marine.rutgers.edu   
 Liz Ferguson | xxx | xxx | xxx   
 Kaitlin Palmer | xxx | xxx | xxx
