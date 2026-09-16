@@ -26,7 +26,7 @@ Supporting scripts (imported by the notebooks above, not run directly):
 
 ## Background
 
-As a platform for passive acoustic monitoring, gliders are remarkably quiet. Nevertheless, they must contend with sources of self-noise (Grasso et al., 2023) and flow noise (Cauchy, 2026; Fregosi et al., 2020). Less-predictable external sources, including wind (Shajahan et al., 2025) and human activity (Hildebrand, 2009), also contribute to the noise recorded by PAM platforms. We expect that noise may limit our ability to acoustically detect marine mammals by lowering signal-to-noise ratios (SNR).
+As a platform for passive acoustic monitoring, gliders are remarkably quiet. Nevertheless, they must contend with sources of self-noise (Grasso et al., 2023) and flow noise (Cauchy, 2026; Fregosi et al., 2020). Less-predictable external sources, including wind (Shajahan et al., 2025) and human activity (Hildebrand, 2009), also contribute to the noise recorded by PAM platforms. Noise may limit our ability to acoustically detect marine mammals by lowering signal-to-noise ratios (SNR), reducing probabilities of detection for marine mammal vocalizations (Fregosi et al., 2020).
 
 To evaluate the effect of noise on marine mammal detection, it is helpful to first identify the conditions which yield elevated noise levels. We must determine: What variables (EX. glider mode, depth, location, etc.) affect noise levels, and how? Are these effects broadband (affecting all frequencies) or narrowband (affecting only select frequency bands)? Answering these questions will allow us to identify the times when noise conditions may mask signals of interest. Future work will be able to determine whether these conditions significantly reduce the probability of signal detection.
 
@@ -102,6 +102,11 @@ We recommend extending the noise assessment to SPL by third-octave band, includi
 
 
 ## References
+Cauchy, P. (2026). Ocean sound measurements collected from underwater gliders with marginal effects of flow noise. The Journal of the Acoustical Society of America, 160(3), 1936–1947. https://doi.org/10.1121/10.0046395
+Fregosi, S., Harris, D. V., Matsumoto, H., Mellinger, D. K., Negretti, C., Moretti, D. J., Martin, S. W., Matsuyama, B., Dugan, P. J., & Klinck, H. (2020). Comparison of fin whale 20 Hz call detections by deep-water mobile autonomous and stationary recorders. The Journal of the Acoustical Society of America, 147(2), 961–977. https://doi.org/10.1121/10.0000617
+Grasso, M., Velázquez, L. P., & Van Uffelen, L. (2023). Quantifying Self-Noise of the Seaglider AUV Using a Passive Acoustic Monitor. Marine Technology Society Journal, 57(3), 30–42. https://doi.org/10.4031/MTSJ.57.3.5
+Hildebrand, J. A. (2009). Anthropogenic and natural sources of ambient noise in the ocean. Marine Ecology Progress Series, 395, 5–20. https://doi.org/10.3354/meps08353
+Shajahan, N., Halliday, W. D., Barclay, D. R., Melling, H., Neimi, A., & Insley, S. J. (2025). Wind-driven ambient noise characteristics in the Western Canadian arctic. JASA Express Letters, 5(2), 026001. https://doi.org/10.1121/10.0035591
 
 ## Acknowledgements
 This project was part of a [Glider Rodeo Hackathon] which worked with (or was inspired by) PAM-Glider data collected by the NOAA Fisheries Glider Rodeo (2026). This weeklong event was hosted by NOAA Fisheries with support by Openscapes (JupyterHub, Support), Oregon State University (Zoom, Box data storage), Aquaview (technical support). 
