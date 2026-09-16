@@ -10,17 +10,17 @@ Kaitlin Palmer | Contractor with OAI on behalf of NOAA Pacific Islands Fisheries
 This is a 3-phase approach:
 
 
-1. glider_data_explore.ipynb: Requires glider science data (csv), PAM noise data (h5), and glider mission phase key (xlsx). This notebook merges the dataframes together where time is within a 90s tolerance and applies quality control (pending) utilizing configurations set in config.py and functions from noise_utils.py. Exports the merged science data (csv) and PAM noise spectrum (parquet) to a per-glider `data/` subfolder for the next notebook.
+1. glider_data_explore.ipynb: Requires glider science data (csv), PAM noise data (h5), and glider mission phase key (xlsx). This notebook merges the dataframes together where time is within a 90s tolerance and always computes `depth_mask_flag`, a per-row QC flag (see `noise_utils.compute_depth_mask_flag`) - it does not drop any rows itself, so the full flagged dataset is always available downstream. Exports the merged science data (csv, including the flag) and PAM noise spectrum (parquet) to a per-glider `data/` subfolder for the next notebook.
      
-3. glider_noise_stats_plots.ipynb: Reads the merged science csv and PAM noise spectrum parquet exported by glider_data_explore.ipynb. Bins the CTD/science variables (temperature, salinity, density, sound velocity, depth) and builds the per-mode and per-bin noise comparison plots (mean spectra, box plots, and correlation tables/matrices), saving figures and result tables to per-glider `figures/` and `data/` subfolders for the presentation notebook.
+3. glider_noise_stats_plots.ipynb: Reads the merged science csv and PAM noise spectrum parquet exported by glider_data_explore.ipynb. When `config.QC_APPLIED` is `True`, drops `depth_mask_flag`-flagged rows from its working copy before analysis (an unfiltered copy is kept for the QC map so flagged points are still visible either way). Bins the CTD/science variables (temperature, salinity, density, sound velocity, depth, latitude, longitude) and builds the per-mode and per-bin noise comparison plots (mean spectra, box plots, correlation tables/matrices, a cartopy glider-track map with a phase-colored panel and a QC-flag panel, and a before-vs-after-QC broadband box plot with a matching per-mode impact table showing rows dropped and the shift in mean SPL), saving figures and result tables to per-glider `figures/` and `data/` subfolders for the presentation notebook.
    
-5. glider_noise_presentation.ipynb: Reads the tables and figures produced by glider_noise_stats_plots.ipynb and assembles them into a summary PowerPoint deck for the glider deployment.
+5. glider_noise_presentation.ipynb: Reads the tables and figures produced by glider_noise_stats_plots.ipynb and assembles them into a summary PowerPoint deck for the glider deployment, with the title slide noting whether QC was applied.
 
 Supporting scripts (imported by the notebooks above, not run directly):  
 
 - config.py: Single place for every setting used across the three notebooks - which glider/deployment to analyze, local vs. JupyterHub paths, output folders, the science/noise merge tolerance, the QC toggle, excluded mission phases, and variable binning widths.
   
-- noise_utils.py: Shared helpers for parsing the PAM noise HDF5 files and for the per-mode/per-bin noise analysis (h5 structure inspection, building the noise DataFrame, bin-edge calculation, and the correlation-matrix/spectrum/box plotting functions). ** QC functions will be added here ***
+- noise_utils.py: Shared helpers for parsing the PAM noise HDF5 files and for the per-mode/per-bin noise analysis: h5 structure inspection, building the noise DataFrame, the `depth_mask_flag` QC check, bin-edge calculation, the correlation-matrix/spectrum/box plotting functions, and the cartopy map-axis setup used by the glider-track plot.
   
 - pptx_utils.py: Generic PowerPoint deck-building helpers (title/section/bullet/image slides) used by glider_noise_presentation.ipynb.
 
@@ -48,7 +48,7 @@ For this workflow, development and testing used a single deployment (Seaglider *
 
 **Instrument variables**
 - **Glider mode** (e.g., dive, climb, drift) from glider mission/flight data
-- **Glider depth**, binned in 20-m increments
+- **Glider depth**, binned in 100-m increments
 
 **Environmental variables**
 Binned environmental values were derived from on-board CTD instrumentation and include:
@@ -76,7 +76,7 @@ The core workflow proceeds as follows:
 3. **Subset the data using the timetable**
    The HMD dataset is split into subsets along each predictor of interest:
    - One subset per **glider mode**
-   - One subset per **glider depth bin** (20 m)
+   - One subset per **glider depth bin** (100 m)
    - One subset per **local sound speed bin** (5 m/s)
    - Extends to all environmental variables, binned as described above.
      

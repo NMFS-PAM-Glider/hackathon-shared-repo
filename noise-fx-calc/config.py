@@ -46,10 +46,11 @@ os.makedirs(FIGURES_DIR, exist_ok=True)
 NOISE_MERGE_TOLERANCE = '90s'  # pandas Timedelta string - max gap between a science row and its nearest PAM sample
 
 # --- QC toggle ---
-# Whether the QC step in glider_data_explore.ipynb (currently a placeholder) has been applied
-# to this run's data. Recorded into summary_meta.json and surfaced on the presentation deck's
+# Whether depth_mask_flag-flagged rows are dropped from the analysis copy of the data in
+# glider_noise_stats_plots.ipynb (glider_data_explore.ipynb always computes the flag but never
+# drops rows itself). Recorded into summary_meta.json and surfaced on the presentation deck's
 # title slide, so it's always obvious at a glance whether a given deck reflects QC'd data or not.
-QC_APPLIED = False
+QC_APPLIED = True
 
 # --- Mission phases to skip entirely in the per-mode plots/analysis (glider_noise_stats_plots.ipynb) ---
 # e.g. 'recovery' only covers the last dive with barely any data - not worth a full set of
