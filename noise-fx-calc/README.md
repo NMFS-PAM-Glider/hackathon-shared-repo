@@ -2,9 +2,13 @@
 
 ## Collaborators
 Aaron (Will) Deans | xxx | xxx | xxx
+
 Julia Engdahl | Rutgers University, Center for Ocean Observing Leadership | engdahl@marine.rutgeres.edu
+
 Liz Ferguson | xxx | xxx | xxx
+
 Katilin Palmer | xxx | xxx | xxx
+
 ## Folder Structure
 This is a 3-phase approach:
         1. glider_data_explore.ipynb: Requires glider science data (csv), PAM noise data (h5), and glider mission phase key (xlsx). This notebook merges the dataframes together where time is within a 90s tolerance and applies quality control (pending) utilizing configurations set in config.py and functions from noise_utils.py. Exports the merged science data (csv) and PAM noise spectrum (parquet) to a per-glider `data/` subfolder for the next notebook.
