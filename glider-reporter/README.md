@@ -10,9 +10,13 @@
 
 Prelim Functions: [cite those created during rodeo]
 
-**Crowdsourced:** (need to add in a minute)
+**Crowdsourced:**TBD-- Anyone who adds a function is a collaborator (includes citation natively)
 
-## Folder Structure
+## Dashboard & Repository
+
+![](glider-reporter_screenshot.png)
+
+[glider-reporter site & dashboards](https://shannonrankin.github.io/glider-reporter/); [Github Repo](https://github.com/shannonrankin/glider-reporter/tree/main)
 
 ## Background
 
