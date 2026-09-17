@@ -1,6 +1,6 @@
-# Glider-Reporter:
+# ![](glider-reporter-logo.png)
 
-## A Flexible Template for Building Markdown Reports for UW Oceanographic Gliders
+## A Flexible Template for Building Markdown Reports for Underwater Oceanographic Gliders
 
 ## Collaborators
 
