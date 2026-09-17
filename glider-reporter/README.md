@@ -21,7 +21,13 @@ Prelim Functions: [cite those created during rodeo]
 ## Background
 
 ## Goals
-
+Develop a shared repository and interactive site for crowdsource functions useful to underwater oceanographic glider operations, including:
+- Custom Issue template for crowdsourced contribution to ideation and development of functions (for data analysis, visualizations, tables, etc)
+- Allow user to search and find preliminary functions coded in R and/or Python
+- Allow user to apply their data to align fields and preview output
+- Allow user to download markdown file with function(s) and identified dependencies
+- ??
+  
 ## Methods
 
 1.  Process/System Ideation (Shannon, wee early hours of September 16!)
