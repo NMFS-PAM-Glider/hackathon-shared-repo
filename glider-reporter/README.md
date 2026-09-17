@@ -1,6 +1,6 @@
-# Glider-Reporter:
+# ![](glider-reporter-logo.png)
 
-## A Flexible Template for Building Markdown Reports for UW Oceanographic Gliders
+## A Flexible Template for Building Markdown Reports for Underwater Oceanographic Gliders
 
 ## Collaborators
 
@@ -8,9 +8,9 @@
 
 **AI Agents:** Gemini [create prompts for copilot]; Github CoPilot [prompts–\> process]
 
-Prelim Functions: [cite those created during rodeo]
+Hackweek Participants: [cite those added a function or we used their function during rodeo]
 
-**Crowdsourced:**TBD-- Anyone who adds a function is a collaborator (includes citation natively)
+**Crowdsourced:**TBD-- Anyone who adds a function is a collaborator (includes citation natively- but haven't checked these yet)
 
 ## Dashboard & Repository
 
@@ -21,13 +21,9 @@ Prelim Functions: [cite those created during rodeo]
 ## Background
 
 ## Goals
-Develop a shared repository and interactive site for crowdsource functions useful to underwater oceanographic glider operations, including:
-- Custom Issue template for crowdsourced contribution to ideation and development of functions (for data analysis, visualizations, tables, etc)
-- Allow user to search and find preliminary functions coded in R and/or Python
-- Allow user to apply their data to align fields and preview output
-- Allow user to download markdown file with function(s) and identified dependencies
-- ??
-  
+
+Develop a shared repository and interactive site for crowdsource functions useful to underwater oceanographic glider operations, including: - Custom Issue template for crowdsourced contribution to ideation and development of functions (for data analysis, visualizations, tables, etc) - Allow user to search and find preliminary functions coded in R and/or Python - Allow user to apply their data to align fields and preview output - Allow user to download markdown file with function(s) and identified dependencies - ??
+
 ## Methods
 
 1.  Process/System Ideation (Shannon, wee early hours of September 16!)
@@ -44,9 +40,11 @@ Develop a shared repository and interactive site for crowdsource functions usefu
 
 ### Datasets
 
-Optional: standardized datasets [Glider 1.0] or User Dataset
+Options:
 
+- Sample Test Dataset (OG1.0)
 - If user dataset, they will match fields to standardized datasets (as needed)
+- Option to also include GliderDAC/ERDDAP
 
 ### Workflow
 
