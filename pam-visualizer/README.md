@@ -65,7 +65,18 @@ Glider rodeo presentation can be found here: https://docs.google.com/presentatio
 
 ## Next Steps
 
+We ran our tool against a controlled subset of data. Looking at more data, including other makes and models, would be helpful to iron out bugs and confirm scenarios that should be supported.
+* Pair to glider data
+    * Possibly "disable" the upcasts, or analyze the upcasts vs the downcasts
+    * Investigate the glider state. Is it noisier during inflections? Can we remove it when it's at the surface and getting splashed around?
+* Save/load settings or a chain of transforms?
+* Documentation
+    * Assess the scientific validity
+    * Simple English for a variety of audiences
+    * Detailed notebook to serve as a walkthrough
+    * Add some literature review, such that users can learn more about the applications and algorithms
 
+Take criticism! If there are suggestions or improvements, we should take them as GitHub issues such that we can stay organized and the community can know its shortcomings.
 
 ## References
 
