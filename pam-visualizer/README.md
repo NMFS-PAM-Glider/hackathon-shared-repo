@@ -48,16 +48,28 @@ Meanwhile, data are visualized in 4 ways:
 
 ### Datasets
 
+A subset of data collected from gliders in the Baltic Sea was provided by Ivia Closset to test the visualization tool. 
+
 ### Workflow
 
 ## Lessons Learned
 
+
+## Next Steps
+
+* `Glider Data`. Does the upcast appear different than the downcast? What about individual glifer states? Need to look at more data.
+* `Documentation`. Generate more documentation to assess scientific validity of the methods, create a more detailed notebook for the classroom and initiate a literature review.
+
 ## Presentation
 Glider rodeo presentation can be found here: https://docs.google.com/presentation/d/1EysKwb2PTtAja1eO1xwhGM8LsgoKEaPa4V8nB1p2CXc/edit?usp=sharing
 
+## Next Steps
+
+
+
 ## References
 
-We used the assistance of Claude AI to assist with this project.
+We used the assistance of Claude AI for this project.
 
 ## Acknowledgements
 This project was part of a [Glider Rodeo Hackathon] which worked with (or was inspired by) PAM-Glider data collected by the NOAA Fisheries Glider Rodeo (2026). This weeklong event was hosted by NOAA Fisheries with support by Openscapes (JupyterHub, Support), Oregon State University (Zoom, Box data storage), Aquaview (technical support). 
