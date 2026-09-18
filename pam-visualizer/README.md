@@ -42,7 +42,9 @@ This grew when the project was proposed - hearing feedback that it would be help
 Meanwhile, data are visualized in 4 ways:
 * `Waveform`. Amplitude on the Y axis, time on the X.
 * `Spectrum`. Magnitude on the Y axis, frequency on the X.
-* `Spectrogram`. Frequency on the Y axis, time on the X, magnitude on the Z.
+* `Spectrogram`. Frequency on the Y axis, time on the X, magnitude on the Z. In the spectrogram viewer mode, there is functionality to listen to the visualized sound.
+* `Long term spectral average`. Frequency on the Y axis, time on the X (days), magnitude on the Z.
+
 
 ### Datasets
 
@@ -51,9 +53,11 @@ Meanwhile, data are visualized in 4 ways:
 ## Lessons Learned
 
 ## Presentation
-
+Glider rodeo presentation can be found here: https://docs.google.com/presentation/d/1EysKwb2PTtAja1eO1xwhGM8LsgoKEaPa4V8nB1p2CXc/edit?usp=sharing
 
 ## References
+
+We used the assistance of Claude AI to assist with this project.
 
 ## Acknowledgements
 This project was part of a [Glider Rodeo Hackathon] which worked with (or was inspired by) PAM-Glider data collected by the NOAA Fisheries Glider Rodeo (2026). This weeklong event was hosted by NOAA Fisheries with support by Openscapes (JupyterHub, Support), Oregon State University (Zoom, Box data storage), Aquaview (technical support). 
