@@ -1,0 +1,44 @@
+# Hefring Oceanscout belladonna (Cornell) - Glider Rodeo 2026
+# Platform/sensor details from shared-public/GliderRodeo/PAM_Glider_Specs.csv.
+# No engineering export exists for this glider: the OG1 file holds CTD, positions and derived phases.
+glider_name: belladonna
+deployment_id: belladonna_20260128
+reader: oceanscout
+source_folder: belladonna_20260128
+data_mode: delayed
+
+files:
+  science: "*_science.csv"
+  gps: "*_GPS.csv"
+
+platform:
+  serial_number: belladonna  # TODO: Hefring serial number not in the rodeo files
+  model: Hefring Oceanscout glider
+  model_vocabulary: ""
+  maker: Hefring Engineering
+  maker_vocabulary: ""
+  wmo_id: ""
+  battery_type: Lithium primary MnO2
+  battery_capacity: 1.2 kWh
+
+sensors:
+  - type: CTD
+    serial: unknown
+    model: JFE Advantech ACTD-OEMU-Z105 CT sensor
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/130/
+    model_vocabulary: ""
+    maker: JFE Advantech
+    maker_vocabulary: https://vocab.nerc.ac.uk/collection/L35/current/MAN0053/
+  - type: HYDROPHONE
+    serial: unknown
+    model: HTI-92WB
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/369/
+    model_vocabulary: ""
+    maker: High Tech Inc.
+    maker_vocabulary: ""
+    attributes:
+      pam_recorder: WISPR 6.1
+
+attributes:
+  institution: Cornell University
+  contributing_institutions: Cornell University

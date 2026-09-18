@@ -1,0 +1,47 @@
+# Seaglider sg607 (OSU) - Glider Rodeo 2026
+# Platform/sensor details from shared-public/GliderRodeo/PAM_Glider_Specs.csv and the sg607 README.
+glider_name: sg607
+deployment_id: sg607_20260128
+reader: seaglider
+source_folder: sg607_20260128
+data_mode: delayed
+
+files:
+  engineering: "*_flight_timeseries_engineering.csv"
+  modeled: "*_flight_timeseries_modeled.csv"
+  science: "*_science_timeseries.csv"
+  gps: "*_GPS_timeseries.csv"
+
+platform:
+  serial_number: sg607
+  model: Kongsberg Maritime Seaglider M1 glider
+  model_vocabulary: https://vocab.nerc.ac.uk/collection/B76/current/B7600002/
+  maker: Kongsberg Maritime
+  maker_vocabulary: https://vocab.nerc.ac.uk/collection/L35/current/MAN0015/
+  wmo_id: ""
+  battery_type: Lithium primary
+  battery_capacity: ""
+
+sensors:
+  - type: CTD
+    serial: unknown
+    model: Sea-Bird CTD  # TODO: exact model/serial not in the rodeo files
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/130/
+    model_vocabulary: ""
+    maker: Sea-Bird Scientific
+    maker_vocabulary: https://vocab.nerc.ac.uk/collection/L35/current/MAN0013/
+  - type: HYDROPHONE
+    serial: "653007"
+    model: HTI-92WB
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/369/
+    model_vocabulary: ""
+    maker: High Tech Inc.
+    maker_vocabulary: ""
+    attributes:
+      pam_recorder: WISPR 3.0
+      hydrophone_sensitivity: -162.5 dB re 1 V/uPa
+
+attributes:
+  institution: Oregon State University
+  contributing_institutions: Oregon State University
+  processing: Seaglider CSVs prepared with agate v1.3.20260902 (https://sfregosi.github.io/agate/)

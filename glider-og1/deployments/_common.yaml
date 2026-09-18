@@ -1,0 +1,23 @@
+# Global attributes shared by every Glider Rodeo deployment.
+# Values in a deployment's own `attributes:` block override these.
+# Text below is taken from the SWFSC deployment YAMLs shipped with the rodeo data.
+attributes:
+  project: GLIDERRODEO
+  program: NOAA Fisheries Underwater Glider Challenge 2026 (Glider Rodeo)
+  naming_authority: gov.noaa.fisheries
+  sea_name: North Pacific Ocean
+  summary: >-
+    These data are part of the NOAA Fisheries 2026 Underwater Glider Challenge. This was a
+    two-week field trial off the coast of Hawaii to evaluate gliders equipped with passive
+    acoustic monitoring (PAM) and assess how these platforms can be used to augment
+    ship-based marine mammal surveys.
+  comment: PRELIMINARY data that require additional QA/QC. Converted from the CSV exports on the Glider Rodeo JupyterHub.
+  license: >-
+    This data may be redistributed and used without restriction. Data provided as is with no
+    expressed or implied assurance of quality assurance or quality control.
+  references: https://nmfs-pam-glider.github.io/GliderRodeo/
+  # OG1 mandatory for the PI/operator - TODO: confirm with the data owners before sharing files.
+  contributor_name: ""
+  contributor_email: ""
+  contributor_role: ""
+  contributor_role_vocabulary: https://vocab.nerc.ac.uk/collection/W08/current/

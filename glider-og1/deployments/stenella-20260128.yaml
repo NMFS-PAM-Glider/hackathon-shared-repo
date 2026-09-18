@@ -1,0 +1,45 @@
+# Slocum G3S stenella (SWFSC) - Glider Rodeo 2026
+# Platform/sensor details from shared-public/GliderRodeo/PAM_Glider_Specs.csv and the stenella README.
+glider_name: stenella
+deployment_id: stenella-20260128
+reader: slocum
+source_folder: stenella_20260128
+data_mode: delayed
+
+files:
+  engineering: "*_flight_timeseries_engineering.csv"
+  science: "*_science_timeseries.csv"
+  gps: "*_GPS_timeseries.csv"
+
+platform:
+  serial_number: unit_1031
+  model: Teledyne Webb Research Slocum G3S glider
+  model_vocabulary: https://vocab.nerc.ac.uk/collection/B76/current/B7600029/
+  maker: Teledyne Webb Research
+  maker_vocabulary: https://vocab.nerc.ac.uk/collection/L35/current/MAN0020/
+  wmo_id: ""
+  battery_type: Lithium rechargeable standard
+  battery_capacity: 215 Ah
+
+sensors:
+  - type: CTD
+    serial: unknown
+    model: Sea-Bird CTD  # TODO: exact model/serial not in the rodeo files
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/130/
+    model_vocabulary: ""
+    maker: Sea-Bird Scientific
+    maker_vocabulary: https://vocab.nerc.ac.uk/collection/L35/current/MAN0013/
+  - type: HYDROPHONE
+    serial: "856196"
+    model: HTI-99HF
+    type_vocabulary: https://vocab.nerc.ac.uk/collection/L05/current/369/
+    model_vocabulary: ""
+    maker: High Tech Inc.
+    maker_vocabulary: ""
+    attributes:
+      pam_recorder: WISPR 3.0
+
+attributes:
+  institution: NOAA SWFSC Ecosystem Science Division
+  contributing_institutions: NOAA SWFSC Ecosystem Science Division
+  processing: Slocum CSVs prepared with the SWFSC ESD glider processing (https://swfsc.github.io/glider-lab-manual/)

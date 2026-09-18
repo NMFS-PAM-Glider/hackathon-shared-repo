@@ -26,3 +26,9 @@ Rplots.pdf
 
 # OS
 .DS_Store
+
+# Local reference material (event slides) -- not for the shared repo
+tools/
+
+# Local copies of hub data
+data/

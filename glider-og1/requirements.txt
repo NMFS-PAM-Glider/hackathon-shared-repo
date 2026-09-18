@@ -1,0 +1,12 @@
+# Python packages for glider-og1 (on top of the repo's requirements.txt)
+#
+#   pip install -r glider-og1/requirements.txt
+
+pandas
+numpy
+xarray
+netcdf4
+pyyaml
+
+# Optional: community diagnostics that read OG1 files
+glidertest
