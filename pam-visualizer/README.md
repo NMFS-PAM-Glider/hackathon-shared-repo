@@ -74,5 +74,5 @@ We used the assistance of Claude AI for this project.
 ## Acknowledgements
 This project was part of a [Glider Rodeo Hackathon] which worked with (or was inspired by) PAM-Glider data collected by the NOAA Fisheries Glider Rodeo (2026). This weeklong event was hosted by NOAA Fisheries with support by Openscapes (JupyterHub, Support), Oregon State University (Zoom, Box data storage), Aquaview (technical support). 
 
-
+![logo](https://github.com/NMFS-PAM-Glider/hackathon-shared-repo/blob/main/pam-visualizer/yeehaw.jpeg?raw=true)
 
