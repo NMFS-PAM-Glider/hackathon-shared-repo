@@ -52,6 +52,9 @@ A subset of data collected from gliders in the Baltic Sea was provided by Ivia C
 
 ### Workflow
 
+![demo](https://github.com/NMFS-PAM-Glider/hackathon-shared-repo/blob/main/pam-visualizer/demo.gif?raw=true)
+
+
 ## Lessons Learned
 
 
