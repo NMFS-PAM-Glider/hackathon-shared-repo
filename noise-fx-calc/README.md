@@ -12,9 +12,9 @@ This is a 3-phase approach:
 
 1. glider_data_explore.ipynb: Requires glider science data (csv), PAM noise data (h5), and glider mission phase key (xlsx). This notebook merges the dataframes together where time is within a 90s tolerance and always computes `depth_mask_flag`, a per-row QC flag (see `noise_utils.compute_depth_mask_flag`) - it does not drop any rows itself, so the full flagged dataset is always available downstream. Exports the merged science data (csv, including the flag) and PAM noise spectrum (parquet) to a per-glider `data/` subfolder for the next notebook.
      
-3. glider_noise_stats_plots.ipynb: Reads the merged science csv and PAM noise spectrum parquet exported by glider_data_explore.ipynb. When `config.QC_APPLIED` is `True`, drops `depth_mask_flag`-flagged rows from its working copy before analysis (an unfiltered copy is kept for the QC map so flagged points are still visible either way). Bins the CTD/science variables (temperature, salinity, density, sound velocity, depth, latitude, longitude) and builds the per-mode and per-bin noise comparison plots (mean spectra, box plots, correlation tables/matrices, a cartopy glider-track map with a phase-colored panel and a QC-flag panel, and a before-vs-after-QC broadband box plot with a matching per-mode impact table showing rows dropped and the shift in mean SPL), saving figures and result tables to per-glider `figures/` and `data/` subfolders for the presentation notebook.
+2. glider_noise_stats_plots.ipynb: Reads the merged science csv and PAM noise spectrum parquet exported by glider_data_explore.ipynb. When `config.QC_APPLIED` is `True`, drops `depth_mask_flag`-flagged rows from its working copy before analysis (an unfiltered copy is kept for the QC map so flagged points are still visible either way). Bins the CTD/science variables (temperature, salinity, density, sound velocity, depth, latitude, longitude) and builds the per-mode and per-bin noise comparison plots (energy-mean spectra and box-plot means - levels are averaged in linear power, then converted back to dB - plus box plots, correlation tables/matrices, a cartopy glider-track map with a phase-colored panel and a QC-flag panel, and a before-vs-after-QC broadband box plot with a matching per-mode impact table showing rows dropped and the shift in energy-mean SPL), saving figures and result tables to per-glider `figures/` and `data/` subfolders for the presentation notebook.
    
-5. glider_noise_presentation.ipynb: Reads the tables and figures produced by glider_noise_stats_plots.ipynb and assembles them into a summary PowerPoint deck for the glider deployment, with the title slide noting whether QC was applied.
+3. glider_noise_presentation.ipynb: Reads the tables and figures produced by glider_noise_stats_plots.ipynb and assembles them into a summary PowerPoint deck for the glider deployment, with the title slide noting whether QC was applied.
 
 Supporting scripts (imported by the notebooks above, not run directly):  
 
@@ -55,6 +55,8 @@ For this workflow, development and testing used a single deployment (Seaglider *
 **Instrument variables**
 - **Glider mode** (e.g., dive, climb, drift) from glider mission/flight data
 - **Glider depth**, binned in 100-m increments
+- **Glider location**: latitude and longitude, binned in 0.05 degree increments
+- **Depth QC flag** (`depth_mask_flag`): flags rows shallower or deeper than the previous dive's surface/bottom inflection points; optionally dropped via the QC toggle in `config.py`
 
 **Environmental variables**
 Binned environmental values were derived from on-board CTD instrumentation and include:
@@ -84,10 +86,11 @@ The core workflow proceeds as follows:
    - One subset per **glider mode**
    - One subset per **glider depth bin** (100 m)
    - One subset per **local sound speed bin** (5 m/s)
+   - One subset per **latitude / longitude bin** (0.05 degrees)
    - Extends to all environmental variables, binned as described above.
      
 4. **Plot each subset**
-   For each predictor, generate a hybrid millidecade plot with curves color-coded by that predictor's bin/category (mode, depth bin, or sound speed bin). Plotting resolution (hybrid millidecade / broadband SPL) can be modified.
+   For each predictor, generate a hybrid millidecade plot with curves color-coded by that predictor's bin/category (mode, depth bin, or sound speed bin). Plotting resolution (hybrid millidecade / broadband SPL) can be modified. Averaged levels are energy means (dB converted to linear power, averaged, then converted back to dB), not means of the dB values.
 
 5. **Output**
    Compile the subset plots into an automated report (PPT, with PDF export). The reporting step uses `python-pptx`, driven by a dictionary mapping report sections to the figures/variables that populate them, so the report regenerates automatically as new deployments or predictors are added.

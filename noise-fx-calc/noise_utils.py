@@ -135,6 +135,28 @@ def make_bin_edges(series, width):
     return np.arange(lo, hi, width)
 
 
+def energy_mean_db(values):
+    """
+    Energy-equivalent mean of sound levels in dB for a 1D array-like: convert to linear power
+    (10 ** (L / 10)), average, convert back to dB. NaNs are ignored; returns NaN if empty.
+    """
+    arr = np.asarray(values, dtype=float)
+    arr = arr[~np.isnan(arr)]
+    if arr.size == 0:
+        return np.nan
+    return 10.0 * np.log10(np.mean(np.power(10.0, arr / 10.0)))
+
+
+def mean_level_db(df, cols):
+    """
+    Energy-equivalent mean of sound levels in dB, per column in `cols`: convert dB to linear
+    power (10 ** (L / 10)), average across rows, then convert back to dB. Averaging the dB values
+    directly is a log-space mean, which is biased low when loud transients are present.
+    """
+    linear = np.power(10.0, df[cols].to_numpy(dtype=float) / 10.0)
+    return 10.0 * np.log10(np.nanmean(linear, axis=0))
+
+
 def setup_map_axes(ax, extent, left_labels=True):
     """
     Land/coastline/gridline boilerplate for a cartopy PlateCarree map axis - the same setup
@@ -203,20 +225,26 @@ def plot_spectrum_lines(freqs, groups, colors, title, ax=None, figsize=(8, 5),
 
 
 def plot_box_by_group(data_dict, colors, xlabel, ylabel, title, ax=None, figsize=(8, 5),
-                       rotate_xticks=True):
+                       rotate_xticks=True, energy_mean=True):
     """
     Box plot: one box per group (dict key), colored per group. Each x-tick label includes
     that group's sample size (n=...) on its own line underneath.
 
     data_dict: {label: array-like of values} - one box per entry, in dict iteration order.
     colors: {label: color} - must have an entry for every key in `data_dict`.
+    energy_mean: values are sound levels in dB, so the mean marker is the energy mean (dB ->
+    linear power -> mean -> dB) rather than matplotlib's arithmetic mean of the dB values.
+    Median and quartiles are unaffected (order statistics don't change under the dB transform).
     """
     if ax is None:
         _, ax = plt.subplots(figsize=figsize)
     labels = list(data_dict.keys())
     data = [data_dict[label] for label in labels]
     tick_labels = [f'{label}\n(n={len(d):,})' for label, d in zip(labels, data)]
-    bp = ax.boxplot(data, labels=tick_labels, showmeans=True, patch_artist=True)
+    bp = ax.boxplot(data, labels=tick_labels, showmeans=not energy_mean, patch_artist=True)
+    if energy_mean:
+        ax.scatter(range(1, len(data) + 1), [energy_mean_db(d) for d in data],
+                   marker='^', color='green', s=30, zorder=3)
     for patch, label in zip(bp['boxes'], labels):
         patch.set_facecolor(colors[label])
     ax.set_xlabel(xlabel)
