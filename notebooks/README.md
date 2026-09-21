@@ -14,6 +14,8 @@ pick whichever language you prefer, or read both to compare.
 | 07 | Noise processing -- run the analysis, plot it, export it | `07_noise_processing_python.ipynb` | -- | Yes |
 | 08 | Noise processing -- checking the output against PyPAM | `08_pypam_validation_python.ipynb` | -- | No |
 
+Please review getting_started.md if you need additional help getting started. 
+
 Start at 01 even if you have used Python or R before -- it takes a minute and
 confirms your environment is set up correctly.
 

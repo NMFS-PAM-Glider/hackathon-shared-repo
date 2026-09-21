@@ -10,7 +10,7 @@
 
 Hackweek Participants: [cite those added a function or we used their function during rodeo]
 
-**Crowdsourced:**TBD-- Anyone who adds a function is a collaborator (includes citation natively- but haven't checked these yet)
+**Crowdsourced:**TBD-- This will be created at a later date
 
 ## Dashboard & Repository
 
@@ -34,8 +34,8 @@ Develop a shared repository and interactive site for crowdsource functions usefu
     2.  [Issue#3 Function Issue Form Template, Registry Generator & Sample Reporting Function](https://github.com/shannonrankin/glider-reporter/issues/3) (Chat GPT Sol 5.6, 49 credits w/ additional issues to address errors)
     3.  [Issue#7 Data Intake & Interactive Field Matching Engine (Quarto + ObservableJS)](https://github.com/shannonrankin/glider-reporter/issues/7) (Chat GPT Sol 5.6, 159 credits)
     4.  [Issue#9 Interactive Function Explorer Dashboard (Quarto + ObservableJS)](https://github.com/shannonrankin/glider-reporter/issues/9) (Chat GPT Sol 5.6, 83 credits)
-    5.  Issue#11 [Interactive Report Builder Dashboard & Client-Side Bundle Exporter (Quarto + ObservableJS)](https://github.com/shannonrankin/glider-reporter/issues/11https://github.com/shannonrankin/glider-reporter/issues/11) (Chat GPT Sol 5.6, 111 credits)
-    6.  Issue#13 [Website Navigation, Documentation Interface & Citation/AI Reference Page](https://github.com/shannonrankin/glider-reporter/issues/13) (Chat GPT Sol 5.6, 61 credits)
+    5.  [Issue#11 Interactive Report Builder Dashboard & Client-Side Bundle Exporter (Quarto + ObservableJS)](https://github.com/shannonrankin/glider-reporter/issues/11https://github.com/shannonrankin/glider-reporter/issues/11) (Chat GPT Sol 5.6, 111 credits)
+    6.  [Issue#13 Website Navigation, Documentation Interface & Citation/AI Reference Page](https://github.com/shannonrankin/glider-reporter/issues/13) (Chat GPT Sol 5.6, 61 credits)
 5.  Review site, update \_quarto.yml, build github pages, etc.
 
 ### Datasets
@@ -52,12 +52,12 @@ Options:
 
 ![](glider-reporter.drawio.png)
 
-## Lessons Learned
+## Next Steps
 
-## Presentation
+The initial sketch and infrastructure of this plan were developed during the Hackathon but without a team. Next steps include (1) improving infrastructure and documentation (solo), (2) creating a x-reporter template for use for other communities, and (3) working with the UG2 community to develop the glider-reporter for this community.
 
 ## References
 
 ## Acknowledgements
 
-This project was part of a [Glider Rodeo Hackathon] which worked with (or was inspired by) PAM-Glider data collected by the NOAA Fisheries Glider Rodeo (2026). This weeklong event was hosted by NOAA Fisheries with support by Openscapes (JupyterHub, Support), Oregon State University (Zoom, Box data storage), Aquaview (technical support).
+This project was part of a [Glider Rodeo Hackathon](https://nmfs-pam-glider.github.io/GliderRodeo/hackathon/) which worked with (or was inspired by) PAM-Glider data collected by the NOAA Fisheries Glider Rodeo (2026). This weeklong event was hosted by NOAA Fisheries with support by Openscapes (JupyterHub, Support), Oregon State University (Zoom, Box data storage), Aquaview (technical support).
