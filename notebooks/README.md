@@ -1,4 +1,5 @@
 # notebooks/
+NOTE: These notebooks were designed to work in the JupyterHUb environment. Paths will need to be revised for all notebooks. 
 
 Worked examples, in order. Each exists twice -- once for Python, once for R -- so
 pick whichever language you prefer, or read both to compare.
@@ -11,8 +12,8 @@ pick whichever language you prefer, or read both to compare.
 | 04 | Glider vs satellite -- a full real-world workflow | `04_glider_satellite_python.ipynb` | `04_glider_satellite_r.ipynb` | Yes |
 | 05 | The hackathon data -- list the folder and open a file | `05_hackathon_data_python.ipynb` | `05_hackathon_data_r.ipynb` | No |
 | 06 | **AQUAVIEW workshop** -- follow along during the session | `06_aquaview_discovery_python.ipynb` | `06_aquaview_discovery_r.ipynb` | Yes |
-| 07 | Noise processing -- run the analysis, plot it, export it | `07_noise_processing_python.ipynb` | -- | Yes |
-| 08 | Noise processing -- checking the output against PyPAM | `08_pypam_validation_python.ipynb` | -- | No |
+
+| ++ | Noise Processing: see notebooks/noiseprocessing/README.md
 
 Please review getting_started.md if you need additional help getting started. 
 
